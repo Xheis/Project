@@ -1,18 +1,3 @@
-# We try to detect the OS we are running on, and adjust commands as needed
-ifeq ($(OS),Windows_NT)
-    TARGET_TEST_EXTENSION=.exe
-    LD_WRAP=true
-else
-    TARGET_TEST_EXTENSION=.out
-    UNAME_S := $(shell uname -s)
-    ifeq ($(UNAME_S),Linux)
-        LD_WRAP=true
-    endif
-    ifeq ($(UNAME_S),Darwin)
-        LD_WRAP=false
-    endif
-endif
-
 F_CPU = 14745600
 
 UNITY_ROOT = ../Unity
@@ -22,7 +7,7 @@ TARGET_ELF = bin/$(TARGET_BASE).elf
 TARGET_HEX = bin/$(TARGET_BASE).hex
 
 TARGET_TEST_BASE = test_$(TARGET_BASE)
-TARGET_TEST = test/bin/$(TARGET_TEST_BASE)$(TARGET_TEST_EXTENSION)
+TARGET_TEST = test/bin/$(TARGET_TEST_BASE).exe
 
 COMMONDEFS = -DF_CPU=$(F_CPU)UL
 
@@ -73,16 +58,22 @@ MATH_LIB = -lm
 LDFLAGS_AVR = $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 
 SRC_COMMON = \
-	src/led.c \
-	src/encoder.c \
-	src/potentiometer.c \
 	src/circ_buffer.c \
 	src/cmd_line_buffer.c \
 	src/cmd_parser.c \
 	src/controller.c \
-	src/task.c \
+	src/dimmer.c \
+	src/encoder.c \
+	src/encoder_isr.c \
+	src/led.c \
+	src/log_data.c \
+	src/main.c \
+	src/potentiometer.c \
 	src/sin_table.c \
-	src/log_data.c
+	src/task.c \
+	src/task_isr.c \
+	src/uart.c \
+	src/uart_isr.c
 
 SRC_TEST = \
 	$(UNITY_ROOT)/src/unity.c \
@@ -109,12 +100,7 @@ SRC_TEST = \
 	test/src/test_sin_table.c
 
 SRC_AVR = \
-	$(SRC_COMMON) \
-	src/main.c \
-	src/encoder_isr.c \
-	src/uart_isr.c \
-	src/uart.c \
-	src/task_trigger_isr.c
+	$(SRC_COMMON)
 
 INC_COMMON = \
 	-Isrc
@@ -131,32 +117,19 @@ INC_AVR = \
 SYMBOLS =
 
 MISC_TEST = -DUNITY_FLOAT_PRECISION=0.0001f
-ifeq ($(LD_WRAP),true)
-	MISC_TEST += -Wl,-wrap,cmd_parse
-else
-	MISC_TEST += -DNO_LD_WRAP
-endif
+MISC_TEST += -Wl,-wrap,cmd_parse
 
 all: clean default
 
-test: clean_test test_only
-
-test_only:
-	gcc $(CFLAGS) $(INC_TEST) $(SYMBOLS) $(SRC_TEST) -o $(TARGET_TEST) $(MISC_TEST)
-	- ./$(TARGET_TEST) -v
-
-clean_test:
-	rm -f $(TARGET_TEST)
-
 default:
-	gcc $(CFLAGS) $(INC_TEST) $(SYMBOLS) $(SRC_TEST) -o $(TARGET_TEST) $(MISC_TEST)
 	avr-gcc -g -Os -mmcu=atmega32 $(CFLAGS) $(INC_AVR) $(SRC_AVR) -o $(TARGET_ELF) $(LDFLAGS_AVR)
-	avr-size $(TARGET_ELF)
 	avr-objcopy -j .text -j .data -O ihex $(TARGET_ELF) $(TARGET_HEX)
-	- ./$(TARGET_TEST)
 
 clean_avr:
 	rm -f $(TARGET_ELF) $(TARGET_HEX)
+
+clean_test:
+	rm -f $(TARGET_TEST)
 
 clean: clean_test clean_avr
 

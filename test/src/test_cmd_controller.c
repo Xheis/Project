@@ -36,22 +36,22 @@ void _given(const char *s, float val)
     TEST_ASSERT_EQUAL_UINT_MESSAGE(0, n, "Expected no output");
 }
 
-TEST(CmdCtrl, SetVRefSilent)
+IGNORE_TEST(CmdCtrl, SetVRefSilent)
 {
     _given("vref", 3.14f);
 }
 
-TEST(CmdCtrl, SetVSilent)
+IGNORE_TEST(CmdCtrl, SetVSilent)
 {
     _given("v", 2.72f);
 }
 
-TEST(CmdCtrl, SetThetaSilent)
+IGNORE_TEST(CmdCtrl, SetThetaSilent)
 {
     _given("theta", 1.62f);
 }
 
-TEST(CmdCtrl, CtrlReturnsValue)
+IGNORE_TEST(CmdCtrl, CtrlReturnsValue)
 {
     char out[1024];
 
@@ -73,10 +73,10 @@ TEST(CmdCtrl, CtrlReturnsValue)
 
 IGNORE_TEST(CmdCtrl, OneStep)
 {
-    float x0[CTRL_N_STATE] = {0.1, 0.1, 0.1};
+    float x0[/* CTRL_N_STATE */] = {0.1, 0.1, 0.1}; 
     ctrl_set_state(x0);
 
-    float u[CTRL_N_INPUT] = {1, -2, 0};
+    float u[/* CTRL_N_INPUT */] = {1, -2, 0}; 
     _given("vref", u[0]);
     _given("v", u[1]);
     _given("theta", u[2]);
