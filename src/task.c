@@ -23,7 +23,36 @@ uint8_t task_triggered(void)
 void task_init(void)
 {
     // TODO: Setup Timer2 to generate compare match interrupts at 100Hz
-    
+
+    /*TCCR0 |= (1<<WGM00)|(1<<COM01)|(1<<WGM01)|(1<<CS00); // initialize timer0 in PWM mode
+    //DDRB |= (1<<PB3); // make OC0 pin as output pin
+    DDRB |= _BV(PB3);
+    OCR0 = 0; */
+
+    // Set timer to CTC mode and prescaler to 1
+    TCCR2 = (1<<WGM21)|(0<<WGM20) | //from table 38 in doc2503, setting up [1,0] CTC
+            (1<<COM21)|(1<<COM20);// | //from table 39 in dcos2503, setting [1,1] sets OCR1 on COMPARE-MATCH
+            //(1<<CS22)|(0<<CS21)|(1<<CS20);  //from table 42 in doc2503, 1024 Prescalling
+    /*
+     * sets a clk/1. Might need change?  Formula from page 75
+        100Hz = 14.7456 MHz/(2 * N (1 + OCRn))
+        (2 * N (1 + OCRn)) = 14.7466*10^3/100
+        (1 + OCRn) = 14.7466*10^6/(100*2*N)
+        OCRn = 14.7466*10^6/(100*2*N)-1
+        OCRn = 14.7466*10^6/(100*2*1024)-1
+        OCRn = 71.0048
+     */
+    // Set TOP value for 100Hz operation (14.7456MHz XTAL)
+    OCR2 = 71; //OCR0 is our Compare Match, e.g. our timer will cycle 0x00 -> 0xFF, and when it hits 0xOCR0, it will invert it's output at OC0
+    // Interrupt on compare
+    //TIMSK |= 1<<OCIE0; 
+
+
+
+    //DDRB |= _BV(PB3);
+    //OCR2 = 0;
+
+
     task_disable();
     _task_callback = NULL;
 }
@@ -35,12 +64,14 @@ void task_enable(void)
     TCNT2 = 0;                      // reset counter
     _task_enable_trigger_isr();     // enable output compare interrupt
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
+    TCCR2 |= (1<<CS22)|(0<<CS21)|(1<<CS20);  //from table 42 in doc2503, 1024 Prescalling
 }
 
 void task_disable(void)
 {
     _task_disable_trigger_isr();    // disable output compare interrupt
     /*TCCR2 &= ???;*/               // TODO: stop timer (disconnect clock source)
+    TCCR2 &= (0<<CS22)|(0<<CS21)|(0<<CS20);  //from table 42 in doc2503, disconnect
 
     _task_trigger_count = 0;
 }
@@ -53,11 +84,13 @@ uint8_t _task_get_ticks_per_trigger(void)
 void _task_enable_trigger_isr(void)
 {
     /*TIMSK |= ???;*/       // TODO: enable output compare interrupt
+    TIMSK |= (1<<OCIE2);
 }
 
 void _task_disable_trigger_isr(void)
 {
     /*TIMSK &= ???;*/       // TODO: disable output compare interrupt
+    TIMSK &= (0<<OCIE2);
 }
 
 bool _task_is_trigger_isr_enabled(void)
