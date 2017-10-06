@@ -2,6 +2,7 @@ F_CPU = 14745600
 
 UNITY_ROOT = ../Unity
 
+PATH_BASE = C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project
 TARGET_BASE = project
 TARGET_ELF = bin/$(TARGET_BASE).elf
 TARGET_HEX = bin/$(TARGET_BASE).hex
@@ -58,22 +59,22 @@ MATH_LIB = -lm
 LDFLAGS_AVR = $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 
 SRC_COMMON = \
-	src/circ_buffer.c \
-	src/cmd_line_buffer.c \
-	src/cmd_parser.c \
-	src/controller.c \
-	src/dimmer.c \
-	src/encoder.c \
-	src/encoder_isr.c \
-	src/led.c \
-	src/log_data.c \
-	src/main.c \
-	src/potentiometer.c \
-	src/sin_table.c \
-	src/task.c \
-	src/task_isr.c \
-	src/uart.c \
-	src/uart_isr.c
+	$(PATH_BASE)/src/circ_buffer.c \
+	$(PATH_BASE)/src/cmd_line_buffer.c \
+	$(PATH_BASE)/src/cmd_parser.c \
+	$(PATH_BASE)/src/controller.c \
+	$(PATH_BASE)/src/dimmer.c \
+	$(PATH_BASE)/src/encoder.c \
+	$(PATH_BASE)/src/encoder_isr.c \
+	$(PATH_BASE)/src/led.c \
+	$(PATH_BASE)/src/log_data.c \
+	$(PATH_BASE)/src/main.c \
+	$(PATH_BASE)/src/potentiometer.c \
+	$(PATH_BASE)/src/sin_table.c \
+	$(PATH_BASE)/src/task.c \
+	$(PATH_BASE)/src/task_isr.c \
+	$(PATH_BASE)/src/uart.c \
+	$(PATH_BASE)/src/uart_isr.c
 
 SRC_TEST = \
 	$(UNITY_ROOT)/src/unity.c \
@@ -124,7 +125,7 @@ all: path clean default commit
 path:
 	echo on
 	echo %cd%
-	cd "C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project/src"
+	cd "C:\Users\Administrator\Documents\MCHA3000\Coding\workspace\Project"
 	echo on
 	echo %cd%
 commit:
