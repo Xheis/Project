@@ -119,7 +119,10 @@ SYMBOLS =
 MISC_TEST = -DUNITY_FLOAT_PRECISION=0.0001f
 MISC_TEST += -Wl,-wrap,cmd_parse
 
-all: clean default
+all: clean default commit
+
+commit:
+	commit.bat
 
 default:
 	avr-gcc -g -Os -mmcu=atmega32 $(CFLAGS) $(INC_AVR) $(SRC_AVR) -o $(TARGET_ELF) $(LDFLAGS_AVR)
