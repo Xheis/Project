@@ -104,7 +104,7 @@ SRC_AVR = \
 	$(SRC_COMMON)
 
 INC_COMMON = \
-	-Isrc
+	-I$(PATH_BASE)src
 
 INC_TEST = \
 	-I$(UNITY_ROOT)/src \
