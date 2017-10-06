@@ -1,4 +1,4 @@
 @ECHO OFF
 ECHO git add . | "C:\Program Files\Git\git-cmd.exe"
-
-ECHO git commit -m "date.exe + "%Y%-%m%-%d%_%T%"" | "C:\Program Files\Git\git-cmd.exe"
+set "DT=%date%_%time%"
+ECHO git commit -m "%DT%" | "C:\Program Files\Git\git-cmd.exe"
