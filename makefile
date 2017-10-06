@@ -120,16 +120,10 @@ SYMBOLS =
 MISC_TEST = -DUNITY_FLOAT_PRECISION=0.0001f
 MISC_TEST += -Wl,-wrap,cmd_parse
 
-all: path clean default commit
+all: clean default commit
 
-path:
-	echo on
-	echo %cd%
-	cd "C:\Users\Administrator\Documents\MCHA3000\Coding\workspace\Project"
-	echo on
-	echo %cd%
 commit:
-	commit.bat
+	$(PATH_BASE)/commit.bat
 
 default:
 	avr-gcc -g -Os -mmcu=atmega32 $(CFLAGS) $(INC_AVR) $(SRC_AVR) -o $(TARGET_ELF) $(LDFLAGS_AVR)
