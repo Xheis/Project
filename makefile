@@ -119,8 +119,12 @@ SYMBOLS =
 MISC_TEST = -DUNITY_FLOAT_PRECISION=0.0001f
 MISC_TEST += -Wl,-wrap,cmd_parse
 
-all: clean default commit
+all: path clean default commit
 
+path:
+	echo $(PWD)
+	cd "C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project/src"
+	echo $(PWD)
 commit:
 	commit.bat
 
