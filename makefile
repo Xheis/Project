@@ -125,6 +125,7 @@ path:
 	echo on
 	echo $(cd)
 	cd "C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project/src"
+	echo on
 	echo $(cd)
 commit:
 	commit.bat
