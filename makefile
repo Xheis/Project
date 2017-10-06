@@ -123,10 +123,10 @@ all: path clean default commit
 
 path:
 	echo on
-	echo cd
+	echo %cd%
 	cd "C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project/src"
 	echo on
-	echo cd
+	echo %cd%
 commit:
 	commit.bat
 
