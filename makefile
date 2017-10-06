@@ -120,10 +120,15 @@ SYMBOLS =
 MISC_TEST = -DUNITY_FLOAT_PRECISION=0.0001f
 MISC_TEST += -Wl,-wrap,cmd_parse
 
-all: clean default commit
+all: clean default commit program
+
+dev: clean default programcommit
 
 commit:
 	$(PATH_BASE)/commit.bat
+
+programcommit:
+	$(PATH_BASE)/program_commit.bat
 
 default:
 	avr-gcc -g -Os -mmcu=atmega32 $(CFLAGS) $(INC_AVR) $(SRC_AVR) -o $(TARGET_ELF) $(LDFLAGS_AVR)
@@ -137,5 +142,5 @@ clean_test:
 
 clean: clean_test clean_avr
 
-program: clean default
+program: 
 	avrdude -p atmega32 -c usbasp -P com4 -b 115200 -u -U flash:w:$(TARGET_HEX)
