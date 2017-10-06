@@ -4,8 +4,8 @@ UNITY_ROOT = ../Unity
 
 PATH_BASE = C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project
 TARGET_BASE = project
-TARGET_ELF = bin/$(TARGET_BASE).elf
-TARGET_HEX = bin/$(TARGET_BASE).hex
+TARGET_ELF = $(PATH_BASE)/bin/$(TARGET_BASE).elf
+TARGET_HEX = $(PATH_BASE)/bin/$(TARGET_BASE).hex
 
 TARGET_TEST_BASE = test_$(TARGET_BASE)
 TARGET_TEST = test/bin/$(TARGET_TEST_BASE).exe
