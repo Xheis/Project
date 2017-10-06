@@ -122,9 +122,9 @@ MISC_TEST += -Wl,-wrap,cmd_parse
 all: path clean default commit
 
 path:
-	echo $(PWD)
+	echo $(cd)
 	cd "C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project/src"
-	echo $(PWD)
+	echo $(cd)
 commit:
 	commit.bat
 
