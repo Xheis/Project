@@ -1,4 +1,4 @@
 @ECHO OFF
-git add .
-set /p commitMsg=Enter Commit Message:
-git commit -m "%commitMsg%"
+ECHO git add . | "C:\Program Files\Git\git-cmd.exe"
+
+ECHO git commit -m "date.exe + "%Y%-%m%-%d%_%T%"" | "C:\Program Files\Git\git-cmd.exe"
