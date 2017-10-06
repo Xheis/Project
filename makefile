@@ -122,6 +122,7 @@ MISC_TEST += -Wl,-wrap,cmd_parse
 all: path clean default commit
 
 path:
+	echo on
 	echo $(cd)
 	cd "C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project/src"
 	echo $(cd)
