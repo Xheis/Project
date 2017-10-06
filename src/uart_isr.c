@@ -1,5 +1,5 @@
 #include <avr/interrupt.h>
-#include "uart.h"
+#include "lib/uart.h"
 
 ISR(USART_RXC_vect)         // USART RX interrupt
 {

@@ -1,5 +1,5 @@
 #include <avr/interrupt.h>
-#include "task.h"
+#include "lib/task.h"
 
 ISR(TIMER2_COMP_vect)
 {

@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "encoder.h"
+#include "lib/encoder.h"
 
 static int32_t _count = 0;
 

@@ -4,10 +4,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <avr/pgmspace.h>
-#include "task.h"
-#include "potentiometer.h"
-#include "encoder.h"
-#include "log_data.h"
+#include "lib/task.h"
+#include "lib/potentiometer.h"
+#include "lib/encoder.h"
+#include "lib/log_data.h"
 
 typedef enum {
     LOG_POT,

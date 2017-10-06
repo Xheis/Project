@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "led.h"
+#include "lib/led.h"
 
 
 void led_init(void)

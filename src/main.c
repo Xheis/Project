@@ -3,13 +3,13 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h> 
 #include <util/delay.h>
-#include "led.h"
-#include "encoder.h"
-#include "potentiometer.h"
-#include "uart.h"
-#include "cmd_line_buffer.h"
-#include "cmd_parser.h"
-#include "task.h"
+#include "lib/led.h"
+#include "lib/encoder.h"
+#include "lib/potentiometer.h"
+#include "lib/uart.h"
+#include "lib/cmd_line_buffer.h"
+#include "lib/cmd_parser.h"
+#include "lib/task.h"
 
 CLB_CREATE_STATIC(clb, 80);
 

@@ -2,7 +2,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
-#include "stepper.h"
+#include "lib/lib/stepper.h"
 
 CONST LEFT=1
 CONST RIGHT=2

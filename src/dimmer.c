@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "dimmer.h"
+#include "lib/dimmer.h"
 
 static uint8_t _brightness, _step;
 

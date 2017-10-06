@@ -2,7 +2,8 @@
 #include <avr/pgmspace.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include "cmd_line_buffer.h"
+#include "lib/cmd_line_buffer.h"
+#include "lib/cmd_parser.h"
 
 void clb_init(CLB_T *clb)
 {
@@ -98,7 +99,6 @@ char * clb_gets(CLB_T *clb)
     return clb_gets_at(clb, 0);
 }
 
-#include "cmd_parser.h"
 
 void clb_process(CLB_T *clb)
 {
