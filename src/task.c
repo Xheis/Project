@@ -23,7 +23,7 @@ uint8_t task_triggered(void)
 void task_init(void)
 {
     // TODO: Setup Timer2 to generate compare match interrupts at 100Hz
-
+    
     task_disable();
     _task_callback = NULL;
 }
