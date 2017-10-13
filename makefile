@@ -114,9 +114,11 @@ INC_AVR = \
 SYMBOLS =
 
 
-all: clean default commit program
+default: dev
 
-dev: clean default programcommit
+all: clean build commit program
+
+dev: clean build programcommit
 
 test: clean_test test_only
 
@@ -130,7 +132,7 @@ commit:
 programcommit:
 	$(PATH_BASE)/program_commit.bat
 
-default:
+build:
 	avr-gcc -g -Os -mmcu=atmega32 $(CFLAGS) $(INC_AVR) $(SRC_AVR) -o $(TARGET_ELF) $(LDFLAGS_AVR)
 	avr-objcopy -j .text -j .data -O ihex $(TARGET_ELF) $(TARGET_HEX)
 
