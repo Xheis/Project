@@ -10,6 +10,7 @@
 #include "cmd_line_buffer.h"
 #include "cmd_parser.h"
 #include "task.h"
+#include "startup.h"
 
 CLB_CREATE_STATIC(clb, 80);
 
@@ -48,3 +49,4 @@ int main(void)
     }
     return 0;
 }
+

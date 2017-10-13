@@ -16,6 +16,9 @@ static void RunAllTests(void)
     RUN_TEST_GROUP(CmdLED);
     RUN_TEST_GROUP(CmdEnc);
     RUN_TEST_GROUP(CmdPot);
+
+    /* Project - Chris */
+    RUN_TEST_GROUP(Startup);
 }
 
 int main(int argc, const char * argv[])

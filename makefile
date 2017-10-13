@@ -71,7 +71,8 @@ SRC_COMMON = \
 	src/potentiometer.c \
 	src/circ_buffer.c \
 	src/cmd_line_buffer.c \
-	src/cmd_parser.c
+	src/cmd_parser.c \
+	src/Startup.c
 
 SRC_TEST = \
 	$(UNITY_ROOT)/src/unity.c \
@@ -90,7 +91,9 @@ SRC_TEST = \
 	test/src/test_cmd_process.c \
 	test/src/test_cmd_led.c \
 	test/src/test_cmd_enc.c \
-	test/src/test_cmd_pot.c
+	test/src/test_cmd_pot.c \
+	test/src/test_Startup.c
+
 
 SRC_AVR = \
 	$(SRC_COMMON) \
@@ -116,9 +119,9 @@ SYMBOLS =
 
 default: dev
 
-all: clean build programcommit program
+all: clean test_only build programcommit program
 
-dev: clean build commit
+dev: clean test_only build commit
 
 test: clean_test test_only
 
