@@ -4,11 +4,11 @@
 #include <string.h>
 #include <inttypes.h> // For PRIxx and SCNxx macros
 #include <avr/pgmspace.h>
-#include "lib/cmd_line_buffer.h"
-#include "lib/potentiometer.h"
-#include "lib/encoder.h"
-#include "lib/led.h"
-#include "lib/cmd_parser.h"
+#include "cmd_line_buffer.h"
+#include "potentiometer.h"
+#include "encoder.h"
+#include "led.h"
+#include "cmd_parser.h"
 
 static void _cmd_help(void);
 static void _print_chip_pinout(void);

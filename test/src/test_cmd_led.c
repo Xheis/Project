@@ -1,5 +1,5 @@
 #include "unity_fixture.h"
-#include "iospy.h"
+#include "stdio_redirect.h"
 
 #include <string.h>
 #include "cmd_line_buffer.h"
@@ -25,24 +25,32 @@ TEST(CmdLED, GetBrightness)
 
     led_set_brightness(42);
 
-    iospy_hook();
-    iospy_push_in_str("led\n");
+    push_stdio();
+    fputs("led\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
 
-    TEST_ASSERT_EQUAL_STRING("LED brightness is 42\n", out);
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
+
+    TEST_ASSERT_EQUAL_STRING("LED brightness is 42\n",out);
 }
 
 TEST(CmdLED, SetBrightness)
 {
     char out[80];
 
-    iospy_hook();
-    iospy_push_in_str("led 73\n");
+    push_stdio();
+    fputs("led 73\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_UINT8(73, led_get_brightness());
     TEST_ASSERT_EQUAL_STRING("LED brightness set to 73\n",out);
@@ -52,11 +60,15 @@ TEST(CmdLED, SetBrightnessOverflow)
 {
     char out[80];
 
-    iospy_hook();
-    iospy_push_in_str("led 260\n");
+    push_stdio();
+    fputs("led 260\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_UINT8(255, led_get_brightness());
     TEST_ASSERT_EQUAL_STRING("LED brightness set to 255\n",out);
@@ -66,11 +78,15 @@ TEST(CmdLED, SetBrightnessUnderflow)
 {
     char out[80];
 
-    iospy_hook();
-    iospy_push_in_str("led -5\n");
+    push_stdio();
+    fputs("led -5\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_UINT8(0, led_get_brightness());
     TEST_ASSERT_EQUAL_STRING("LED brightness set to 0\n",out);
@@ -80,11 +96,15 @@ TEST(CmdLED, TurnOn)
 {
     char out[80];
 
-    iospy_hook();
-    iospy_push_in_str("led on\n");
+    push_stdio();
+    fputs("led on\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_UINT8(255, led_get_brightness());
     TEST_ASSERT_EQUAL_STRING("LED is on\n",out);
@@ -94,11 +114,15 @@ TEST(CmdLED, TurnOff)
 {
     char out[80];
 
-    iospy_hook();
-    iospy_push_in_str("led off\n");
+    push_stdio();
+    fputs("led off\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_UINT8(0, led_get_brightness());
     TEST_ASSERT_EQUAL_STRING("LED is off\n",out);
@@ -108,11 +132,15 @@ TEST(CmdLED, InvalidArgument)
 {
     char out[80];
 
-    iospy_hook();
-    iospy_push_in_str("led blah\n");
+    push_stdio();
+    fputs("led blah\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_UINT8(0, led_get_brightness());
     TEST_ASSERT_EQUAL_STRING("led: invalid argument \"blah\", syntax is: led [on|off|<value>]\n",out);
@@ -124,11 +152,15 @@ TEST(CmdLED, BlankArgument)
 
     led_set_brightness(13);
 
-    iospy_hook();
-    iospy_push_in_str("led \n");
+    push_stdio();
+    fputs("led \n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_STRING("LED brightness is 13\n",out);
 }

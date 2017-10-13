@@ -1,5 +1,5 @@
 #include "unity_fixture.h"
-#include "iospy.h"
+#include "stdio_redirect.h"
 
 #include <string.h>
 #include "cmd_line_buffer.h"
@@ -25,11 +25,15 @@ TEST(CmdEnc, GetCount)
 
     encoder_set_count(24);
 
-    iospy_hook();
-    iospy_push_in_str("enc\n");
+    push_stdio();
+    fputs("enc\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_STRING("Encoder count is 24\n",out);
 }
@@ -40,11 +44,15 @@ TEST(CmdEnc, ResetCount)
 
     encoder_set_count(-55);
 
-    iospy_hook();
-    iospy_push_in_str("enc reset\n");
+    push_stdio();
+    fputs("enc reset\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_STRING("Encoder count reset to 0\n",out);
     TEST_ASSERT_EQUAL_INT32(0, encoder_get_count());
@@ -54,11 +62,15 @@ TEST(CmdEnc, InvalidArgument)
 {
     char out[80];
 
-    iospy_hook();
-    iospy_push_in_str("enc derp\n");
+    push_stdio();
+    fputs("enc derp\n",fstdin());
+    rewind(fstdin());
     clb_process(&clb);
-    iospy_pop_out_str(out, sizeof(out));
-    iospy_unhook();
+    if (feof(stdin)) clearerr(stdin); // <-- Secret sauce
+
+    rewind(stdout);
+    fgets(out, sizeof(out), fstdout());
+    pop_stdio();
 
     TEST_ASSERT_EQUAL_STRING("enc: invalid argument \"derp\", syntax is: enc [reset]\n", out);    
 }

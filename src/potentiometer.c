@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "lib/potentiometer.h"
+#include "potentiometer.h"
 
 void pot_init(void)
 {

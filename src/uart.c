@@ -1,8 +1,8 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <stdio.h>
-#include "lib/uart.h"
-#include "lib/circ_buffer.h"
+#include "uart.h"
+#include "circ_buffer.h"
 
 CB_CREATE_STATIC(rx_buf, 64);
 CB_CREATE_STATIC(tx_buf, 256); // Reminder: Change this to 256 later

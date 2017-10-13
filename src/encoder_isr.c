@@ -1,5 +1,5 @@
 #include <avr/interrupt.h>
-#include "lib/encoder.h"
+#include "encoder.h"
 
 ISR(INT0_vect)
 {

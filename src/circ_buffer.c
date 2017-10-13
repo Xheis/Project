@@ -1,4 +1,4 @@
-#include "lib/circ_buffer.h"
+#include "circ_buffer.h"
 #include <stdint.h>
 
 void cb_init(CB_T *cb)

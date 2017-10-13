@@ -3,8 +3,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <avr/pgmspace.h>
-#include "lib/task.h"
-#include "lib/sin_table.h"
+#include "task.h"
+#include "sin_table.h"
 
 static uint32_t _n_samples;
 static float _time, _amplitude, _frequency;

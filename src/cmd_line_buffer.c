@@ -2,8 +2,8 @@
 #include <avr/pgmspace.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include "lib/cmd_line_buffer.h"
-#include "lib/cmd_parser.h"
+#include "cmd_line_buffer.h"
+#include "cmd_parser.h"
 
 void clb_init(CLB_T *clb)
 {

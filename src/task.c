@@ -5,7 +5,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <inttypes.h>
-#include "lib/task.h"
+#include "task.h"
 
 static TASK_CALLBACK_T _task_callback;         // Task callback function pointer
 static volatile uint8_t _task_trigger_count;

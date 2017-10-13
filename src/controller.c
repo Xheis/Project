@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include "lib/controller.h"
+#include "controller.h"
 
 static float _ctrl_state[CTRL_N_STATE];
 static float _ctrl_output[CTRL_N_OUTPUT];
