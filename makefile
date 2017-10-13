@@ -116,9 +116,9 @@ SYMBOLS =
 
 default: dev
 
-all: clean build commit program
+all: clean build programcommit program
 
-dev: clean build programcommit
+dev: clean build commit
 
 test: clean_test test_only
 
