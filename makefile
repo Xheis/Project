@@ -100,7 +100,8 @@ SRC_AVR = \
 	src/main.c \
 	src/encoder_isr.c \
 	src/uart_isr.c \
-	src/uart.c
+	src/uart.c \
+	src/task.c
 
 INC_COMMON = \
 	-Isrc

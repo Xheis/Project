@@ -1,3 +1,4 @@
+#include "task.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
@@ -11,6 +12,7 @@
 #include "cmd_parser.h"
 #include "task.h"
 #include "startup.h"
+#include "task.h"
 
 CLB_CREATE_STATIC(clb, 80);
 
@@ -21,7 +23,7 @@ int main(void)
     encoder_init();
     pot_init();
     uart_init();
-    //task_init();
+    task_init();
     
     // Enable global interrupts
     sei();      
@@ -34,14 +36,14 @@ int main(void)
     _delay_ms(200); led_on();
 
     // Send initial string
-    printf_P(PSTR("\nC3206246 BUILD:"__DATE__" "__TIME__"\n\n"));
+    printf_P(PSTR("\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"));
     //debug_P(PSTR("\n\rV1.01 "__DATE__" "__TIME__));
 
     for(;/*ever*/;)
     {
-        if (true)//task_triggered())
+        if (task_triggered())
         {
-            //task_run();
+            task_run();
         }
         else
         {
