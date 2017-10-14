@@ -119,7 +119,7 @@ SYMBOLS =
 
 default: dev
 
-all: clean test_only build programcommit program
+all: clean test_only build program programcommit
 
 dev: clean test_only build commit
 
@@ -148,4 +148,4 @@ clean_test:
 clean: clean_test clean_avr
 
 program: 
-	avrdude -p atmega32 -c avr109 -P com6 -b 115200 -u -U flash:w:'$(TARGET_HEX)'
+	avrdude -p atmega32 -c avr109 -P com6 -b 115200 -u -U flash:w:$(TARGET_HEX):i
