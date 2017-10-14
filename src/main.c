@@ -34,7 +34,7 @@ int main(void)
     _delay_ms(200); led_on();
 
     // Send initial string
-    printf_P(PSTR("\nHello world!\n\n"));
+    printf_P(PSTR("\nHello world! V2.0\n\n"));
 
     for(;/*ever*/;)
     {
