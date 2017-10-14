@@ -34,7 +34,8 @@ int main(void)
     _delay_ms(200); led_on();
 
     // Send initial string
-    printf_P(PSTR("\nHello world! V2.0\n\n"));
+    printf_P(PSTR("\nC3206246 BUILD:__DATE__" "__TIME__\n\n"));
+    //debug_P(PSTR("\n\rV1.01 "__DATE__" "__TIME__));
 
     for(;/*ever*/;)
     {
