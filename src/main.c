@@ -37,7 +37,6 @@ int main(void)
 
     // Send initial string
     printf_P(PSTR("\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"));
-    //debug_P(PSTR("\n\rV1.01 "__DATE__" "__TIME__));
 
     for(;/*ever*/;)
     {

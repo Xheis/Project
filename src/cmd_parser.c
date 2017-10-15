@@ -124,6 +124,8 @@ void _cmd_help(void)
         "    pot                        Get potentiometer ADC value (0-1023)\n"
         "    enc [reset]                Get or reset encoder count\n"
         "    led [on|off|<value>]       Get or set LED brightness (0-255)\n"
+        " --------------------------------------------------------------- "
+        "\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"
         "\n"
     ));
 }
