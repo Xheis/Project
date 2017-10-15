@@ -32,7 +32,7 @@ void test_stepper()
 
 		for(x=0; x<4; x++)              //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
 		{
-		 for(y=0; y<10; y++)
+		 for(y=0; y<50; y++)
 		 {
 		  PORTD |=(1<<7);
 		  _delay_us(700);
@@ -40,14 +40,14 @@ void test_stepper()
 		   _delay_us(700);
 		 }
 		 printf_P(PSTR("step clockwis\n"));
-		 _delay_ms(500);
+		 _delay_ms(250);
 		}
 		
 		PORTD &= ~(1<<6);              //Make PORTD6 high to rotate motor in anti-clockwise direction
 		
 		for(x=0; x<4; x++)             //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
 		{
-			for(y=0; y<10; y++)
+			for(y=0; y<50; y++)
 			{
 				PORTD |=(1<<7);
 				_delay_us(700);
@@ -55,7 +55,7 @@ void test_stepper()
 				_delay_us(700);
 			}
 		 printf_P(PSTR("step anti-clockwise\n"));
-			_delay_ms(1000);             
+			_delay_ms(750);             
 		}
 	
 	}
