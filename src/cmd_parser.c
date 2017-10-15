@@ -31,14 +31,14 @@ void cmd_parse(const char * cmd)
     {
         printf_P(PSTR("Potentiometer ADC value is %" PRIu16 "\n"), pot_get_value());
     }
-    else if (!strncmp_P(cmd, PSTR("enc"), 3))
-    {
-        printf_P(PSTR("Encoder count is %" PRId32 "\n"), encoder_get_count());
-    }
     else if (!strncmp_P(cmd, PSTR("enc reset"), 9))
     {
         encoder_set_count(0);
         printf_P(PSTR("Encoder count reset to 0\n"));
+    }
+    else if (!strncmp_P(cmd, PSTR("enc"), 3))
+    {
+        printf_P(PSTR("Encoder count is %" PRId32 "\n"), encoder_get_count());
     }
     else if (!strncmp_P(cmd, PSTR("led on"), 6))
     {
