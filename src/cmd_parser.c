@@ -27,14 +27,28 @@ void cmd_parse(const char * cmd)
     {
         _cmd_help();
     }
+    else if (!strncmp_P(cmd, PSTR("pot "), 4))
+    {
+        //If you get into this far
+        printf_P(PSTR("pot: invalid argument \"%s\", syntax is: pot\n"),cmd+4);
+    }
     else if (!strncmp_P(cmd, PSTR("pot"), 3))
     {
         printf_P(PSTR("Potentiometer ADC value is %" PRIu16 "\n"), pot_get_value());
     }
-    else if (!strncmp_P(cmd, PSTR("enc reset"), 9))
+    else if (!strncmp_P(cmd, PSTR("enc "), 4))
     {
-        encoder_set_count(0);
-        printf_P(PSTR("Encoder count reset to 0\n"));
+        //If you get into this far
+        if (!strcmp("reset",cmd+4))
+        {
+            encoder_set_count(0);
+            printf_P(PSTR("Encoder count reset to 0\n"));
+        }
+        else
+        {
+            //what is this get outta here wtf ya doing
+            printf_P(PSTR("enc: invalid argument \"%s\", syntax is: enc [reset]\n"),cmd+4);
+        }
     }
     else if (!strncmp_P(cmd, PSTR("enc"), 3))
     {
@@ -52,47 +66,72 @@ void cmd_parse(const char * cmd)
     }
     else if (!strncmp_P(cmd, PSTR("led "), 4))
     {
-        uint16_t led = atoi(cmd + 4);
-		
-	/*	if((*cmd<'Z' && *cmd>'A')|(*cmd<'z' && *cmd>'a'))
-		{
-			 printf_P(PSTR("led: invalid argument \"%s\", syntax is: led [on|off|<value>]\n"),cmd+4);
-		}*/
-		
-	/*	int charicter = atoi(cmd + 4);
-		
-		if(isalpha(charicter))
-		{
-			 printf_P(PSTR("led: invalid argument \"%s\", syntax is: led [on|off|<value>]\n"),cmd+4);
-		}
-		*/
-		if(strstr(cmd + 4, "-"))
-			{
-				led = 0;
-			}
-			
-		if(cmd[4] == '\0')
-			{
-			printf_P(PSTR("LED brightness is %" PRIu8 "\n"), led_get_brightness());
-			}
+        int16_t led = 0;
+        uint8_t EOF_Found = 0;
+        uint8_t Letters_Found = 0;
+        uint8_t Blank_Found = 0;
 
-		if (led >= 255)
-			{
-				led = 255;
-			}
+        //uint8_t Negative = 0;
+        //check it's not an overflow, now that there's much we can do
+        for(int index = 4; index < 8; index++) {
+            
+            //if(*(cmd+index) == '\n')
+            if((cmd[index]) == '\0')
+            {
+                if (index == 4)
+                {
+                    //blank entry
+                    Blank_Found++;
+                    break;
+                }
+                //EOF found
+                EOF_Found++;
+                break;
+            }
+            if (cmd[index] < 48|| cmd[index] > 57)
+            {
+                // NOn nUmber Shit GEETTIng all up here
+                Letters_Found++;
+            }
+        }
 
-			/*if((cmd +4)<'Z' && (cmd +4)>'A')|((cmd +4)<'z' && *(cmd +4)>'a'))
-		{
-			 printf_P(PSTR("led: invalid argument \"%s\", syntax is: led [on|off|<value>]\n"),cmd+4);
-		}*/
-			led_set_brightness(led);
-			printf_P(PSTR("LED brightness set to %" PRIu8 "\n"), led);
-			
-			if((*cmd<'Z' && *cmd>'A')|(*cmd<'z' && *cmd>'a'))
-		{
-			 printf_P(PSTR("led: invalid argument \"%s\", syntax is: led [on|off|<value>]\n"),cmd+4);
-		}
-		
+        led = atol(cmd + 4);
+        if (led > 255)
+        {
+            led = 255;
+        }
+        else if (led < 0)
+        {
+            led = 0;
+        }
+
+        if (EOF_Found)
+        {
+            //No overflow, not negative so let's continue
+            //It's a number. let's set the LED-var to it
+            
+            led_set_brightness(led);
+            printf_P(PSTR("LED brightness set to %" PRIu8 "\n"), led);
+        }
+        else if (Letters_Found)
+        {
+            printf_P(PSTR("led: invalid argument \"%s\", syntax is: led [on|off|<value>]\n"), cmd+4);
+
+        }
+        else if(Blank_Found)
+        {
+            //printf_P(PSTR("LED brightness is\"%u\"\n"), led_get_brightness());
+            printf_P(PSTR("LED brightness is %" PRIu8 "\n"), led_get_brightness());
+        }
+        else
+        {
+            led = 255; //0
+            led_set_brightness(led);
+            printf_P(PSTR("LED brightness set to %" PRIu8 "\n"), led); //printf_P(PSTR("Overflowed! LED turning off %" PRIu8 "\n"), led);
+        }
+
+
+
     }
     else if (!strncmp_P(cmd, PSTR("led"), 3))
     {
@@ -102,8 +141,8 @@ void cmd_parse(const char * cmd)
     {
         printf("Unknown command: \"%s\"\n", cmd);
     }
-	
 }
+
 
 void _cmd_help(void)
 {
