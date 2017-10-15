@@ -101,6 +101,7 @@ SRC_AVR = \
 	src/encoder_isr.c \
 	src/uart_isr.c \
 	src/uart.c \
+	src/stepper.c \
 	src/task.c
 
 INC_COMMON = \
@@ -122,6 +123,8 @@ default: dev
 
 all: clean test_only build program programcommit
 
+notest: clean build program programnotestcommit
+
 dev: clean test_only build commit
 
 test: clean_test test_only
@@ -135,6 +138,9 @@ commit:
 
 programcommit:
 	$(PATH_BASE)/program_commit.bat
+
+programnotestcommit:
+	$(PATH_BASE)/program_no_test_commit.bat
 
 build:
 	avr-gcc -g -Os -mmcu=atmega32 $(CFLAGS) $(INC_AVR) $(SRC_AVR) -o $(TARGET_ELF) $(LDFLAGS_AVR)

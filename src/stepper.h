@@ -4,11 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void motor_init(void);			//Configure ADC and Timer 1
-void set_dir1(int dir);
-void set_dir2(int dir);
-void set_speed1(int speed);
-void set_speed2(int speed);
+void stepper_init(void);
+void test_stepper(void);			//Configure ADC and Timer 1
+void set_dir(int,int);
+void set_speed(int,int);
 int get_pwm(float V);
 
 typedef struct

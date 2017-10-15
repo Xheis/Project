@@ -8,6 +8,7 @@
 #include "potentiometer.h"
 #include "encoder.h"
 #include "led.h"
+#include "stepper.h"
 #include "cmd_parser.h"
 
 static void _cmd_help(void);
@@ -31,6 +32,12 @@ void cmd_parse(const char * cmd)
     {
         //If you get into this far
         printf_P(PSTR("pot: invalid argument \"%s\", syntax is: pot\n"),cmd+4);
+    }
+    else if (!strncmp_P(cmd, PSTR("test_stepper"), 4))
+    {
+        //If you get into this far
+        printf_P(PSTR("Testing stepper: A restart is needed to quit out of this\n"));
+        test_stepper();
     }
     else if (!strncmp_P(cmd, PSTR("pot"), 3))
     {
@@ -163,6 +170,7 @@ void _cmd_help(void)
         "    pot                        Get potentiometer ADC value (0-1023)\n"
         "    enc [reset]                Get or reset encoder count\n"
         "    led [on|off|<value>]       Get or set LED brightness (0-255)\n"
+        "    test_stepper               A restart is needed to quit out of this\n"
         " --------------------------------------------------------------- "
         "\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"
         "\n"

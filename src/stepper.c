@@ -3,15 +3,54 @@
 #include <avr/interrupt.h>
 #include <util/atomic.h>
 #include "stepper.h"
+#include <util/delay.h>
 
-CONST LEFT=1
-CONST RIGHT=2
+
 // Configure Timer1
 void stepper_init(void)
 {
 
 }
 
+void test_stepper()
+{
+	int x,y;
+  
+      DDRD |= (1<<5)|(1<<6)|(1<<7);     // Configure PORTD5, PORTD6, PORTD7 as output
+	  PORTD &= ~(1<<5);                 // Enable driver
+	
+    while (1) 
+    {
+		PORTD |= (1<<6);                //Make PORTD6 high to rotate motor in clockwise direction
+		
+		for(x=0; x<4; x++)              //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
+		{
+		 for(y=0; y<50; y++)
+		 {
+		  PORTD |=(1<<7);
+		  _delay_us(700);
+		  PORTD &=~(1<<7);
+		   _delay_us(700);
+		 }
+		 _delay_ms(1000);
+		}
+		
+		PORTD &= ~(1<<6);              //Make PORTD6 high to rotate motor in anti-clockwise direction
+		
+		for(x=0; x<4; x++)             //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
+		{
+			for(y=0; y<50; y++)
+			{
+				PORTD |=(1<<7);
+				_delay_us(700);
+				PORTD &=~(1<<7);
+				_delay_us(700);
+			}
+			_delay_ms(1000);             
+		}
+	}
+}
+/*
 void set_dir(int stepper, int dir)
 {
 	if (stepper == LEFT)
@@ -59,10 +98,10 @@ void set_speed(int stepper, int speed)
 	if (stepper == LEFT)
 	{
 		if(speed<0){
-			set_dir1(1);
+			set_dir(1,1);
 			speed = speed*-1;
 		}else{
-			set_dir1(2);
+			set_dir(2);
 		}
 		OCR1AL = speed;
 
@@ -70,10 +109,10 @@ void set_speed(int stepper, int speed)
 	else if (stepper == RIGHT)
 	{
 		if(speed<0){
-			set_dir2(1);
+			set_dir(1);
 			speed = speed*-1;
 		}else{
-			set_dir2(2);
+			set_dir(2);
 		}
 		
 		OCR1BL = speed;
@@ -85,3 +124,4 @@ void set_speed(int stepper, int speed)
 		//testing commit
 	}
 }
+*/
