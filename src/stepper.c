@@ -40,7 +40,7 @@ void test_stepper()
 		   _delay_us(700);
 		 }
 		 printf_P(PSTR("step clockwis\n"));
-		 _delay_ms(125);
+		 _delay_ms(10);
 		}
 		
 		PORTD &= ~(1<<6);              //Make PORTD6 high to rotate motor in anti-clockwise direction
@@ -55,7 +55,7 @@ void test_stepper()
 				_delay_us(700);
 			}
 		 printf_P(PSTR("step anti-clockwise\n"));
-			_delay_ms(60);             
+			_delay_ms(30);             
 		}
 	
 	}
