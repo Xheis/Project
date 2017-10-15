@@ -5,6 +5,13 @@
 #include "stepper.h"
 #include <util/delay.h>
 
+#include <stdio.h>
+#include <stdlib.h> // atoi
+#include <ctype.h>
+#include <string.h>
+#include <inttypes.h> // For PRIxx and SCNxx macros
+#include <avr/pgmspace.h>
+#include "cmd_line_buffer.h"
 
 // Configure Timer1
 void stepper_init(void)
@@ -25,13 +32,14 @@ void test_stepper()
 		
 		for(x=0; x<4; x++)              //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
 		{
-		 for(y=0; y<50; y++)
+		 for(y=0; y<10; y++)
 		 {
 		  PORTD |=(1<<7);
-		  _delay_us(700);
+		  _delay_us(1000);
 		  PORTD &=~(1<<7);
-		   _delay_us(700);
+		   _delay_us(1000);
 		 }
+		 printf_P(PSTR("step clockwise"));
 		 _delay_ms(1000);
 		}
 		
@@ -39,13 +47,14 @@ void test_stepper()
 		
 		for(x=0; x<4; x++)             //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
 		{
-			for(y=0; y<50; y++)
+			for(y=0; y<10; y++)
 			{
 				PORTD |=(1<<7);
-				_delay_us(700);
+				_delay_us(1000);
 				PORTD &=~(1<<7);
-				_delay_us(700);
+				_delay_us(1000);
 			}
+		 printf_P(PSTR("step anti-clockwise"));
 			_delay_ms(1000);             
 		}
 	}
