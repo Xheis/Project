@@ -13,6 +13,11 @@
 #include <avr/pgmspace.h>
 #include "cmd_line_buffer.h"
 
+
+static int EN_PIN[] = {2,5};
+static int DIR_PIN[]= {3,6};
+static int STEP_PIN[] = {4,7};
+
 // Configure Timer1
 void stepper_init(void)
 {
@@ -23,35 +28,42 @@ void test_stepper()
 {
 	int x,y;
   
-      DDRD |= (1<<5)|(1<<6)|(1<<7);     // Configure PORTD5, PORTD6, PORTD7 as output
-	  PORTD &= ~(1<<5);                 // Enable driver
+      DDRD |= (1<<EN_PIN[0])|(1<<EN_PIN[1])|(1<<DIR_PIN[0])|(1<<DIR_PIN[1])|(1<<STEP_PIN[0])|(1<<STEP_PIN[1]);     // Configure PORTD5, PORTD6, PORTD7 as output
+	  PORTD &= ~(1<<EN_PIN[0]);     
+	  PORTD &= ~(1<<EN_PIN[1]);                 // Enable driver
 	
     while (1) 
     {
-		PORTD |= (1<<6);                //Make PORTD6 high to rotate motor in clockwise direction
+		PORTD |= (1<<DIR_PIN[1]);                //Make PORTD6 high to rotate motor in clockwise direction
+		PORTD |= (1<<DIR_PIN[0]);                //Make PORTD6 high to rotate motor in clockwise direction
 
 		for(x=0; x<100; x++)              //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
 		{
 		 for(y=0; y<10; y++)
 		 {
-		  PORTD |=(1<<7);
+		  PORTD |=(1<<STEP_PIN[0]);
+		  PORTD |=(1<<STEP_PIN[1]);
 		  _delay_us(700);
-		  PORTD &=~(1<<7);
+		  PORTD &=~(1<<STEP_PIN[0]);
+		  PORTD &=~(1<<STEP_PIN[1]);
 		   _delay_us(700);
 		 }
 		 printf_P(PSTR("step clockwis\n"));
 		 _delay_ms(10);
 		}
 		
-		PORTD &= ~(1<<6);              //Make PORTD6 high to rotate motor in anti-clockwise direction
+		PORTD &= ~(1<<DIR_PIN[0]);
+		PORTD &= ~(1<<DIR_PIN[1]);              //Make PORTD6 high to rotate motor in anti-clockwise direction
 		
 		for(x=0; x<100; x++)             //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
 		{
 			for(y=0; y<10; y++)
 			{
-				PORTD |=(1<<7);
+				PORTD |=(1<<STEP_PIN[0]);
+				PORTD |=(1<<STEP_PIN[1]);
 				_delay_us(700);
-				PORTD &=~(1<<7);
+				PORTD &=~(1<<STEP_PIN[0]);
+				PORTD &=~(1<<STEP_PIN[1]);
 				_delay_us(700);
 			}
 		 printf_P(PSTR("step anti-clockwise\n"));
