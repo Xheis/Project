@@ -32,10 +32,10 @@ void test_stepper()
   
       DDRD |= (1<<EN_PIN[0])|(1<<EN_PIN[1])|(1<<DIR_PIN[0])|(1<<DIR_PIN[1])|(1<<STEP_PIN[0])|(1<<STEP_PIN[1]);     // Configure PORTD5, PORTD6, PORTD7 as output
 
-	
+	int step_Speed = 100;
     while (1) 
     {
-		PORTD |= (1<<DIR_PIN[1]);
+		PORTD |= (1<<DIR_PIN[0]);
 		PORTD &= ~(1<<DIR_PIN[1]);                 //Make PORTD6 high to rotate motor in clockwise direction
 
 		for(x=0; x<100; x++)              //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
@@ -50,11 +50,11 @@ void test_stepper()
 		   _delay_us(700);
 		 }
 		 printf_P(PSTR("step clockwis\n"));
-		 _delay_ms(10);
+		 _delay_ms(step_Speed); //speed
 		}
 		
 		PORTD &= ~(1<<DIR_PIN[0]);                //Make PORTD6 high to rotate motor in clockwise direction
-		PORTD |= (1<<DIR_PIN[0]);             //Make PORTD6 high to rotate motor in anti-clockwise direction
+		PORTD |= (1<<DIR_PIN[1]);             //Make PORTD6 high to rotate motor in anti-clockwise direction
 		
 		for(x=0; x<100; x++)             //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
 		{
@@ -68,7 +68,7 @@ void test_stepper()
 				_delay_us(700);
 			}
 		 printf_P(PSTR("step anti-clockwise\n"));
-			_delay_ms(30);             
+			_delay_ms(step_Speed);             
 		}
 	
 	}
