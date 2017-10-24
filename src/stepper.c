@@ -34,6 +34,7 @@ void test_stepper()
 
 	int step_Speed = 50;
 	int step_distance = 25;
+	int step_inbetween_delay = 400;
     while (1) 
     {
 		PORTD |= (1<<DIR_PIN[0]);
@@ -45,12 +46,12 @@ void test_stepper()
 		 {
 		  PORTD |=(1<<STEP_PIN[0]);
 		  PORTD |=(1<<STEP_PIN[1]);
-		  _delay_us(700);
+		  _delay_us(step_inbetween_delay);
 		  PORTD &=~(1<<STEP_PIN[0]);
 		  PORTD &=~(1<<STEP_PIN[1]);
-		   _delay_us(700);
+		   _delay_us(step_inbetween_delay);
 		 }
-		 printf_P(PSTR("step clockwis\n"));
+		 //printf_P(PSTR("step clockwis\n"));
 		 _delay_ms(step_Speed); //speed
 		}
 		
@@ -63,12 +64,12 @@ void test_stepper()
 			{
 				PORTD |=(1<<STEP_PIN[0]);
 				PORTD |=(1<<STEP_PIN[1]);
-				_delay_us(700);
+				_delay_us(step_inbetween_delay);
 				PORTD &=~(1<<STEP_PIN[0]);
 				PORTD &=~(1<<STEP_PIN[1]);
-				_delay_us(700);
+				_delay_us(step_inbetween_delay);
 			}
-		 printf_P(PSTR("step anti-clockwise\n"));
+		 //printf_P(PSTR("step anti-clockwise\n"));
 			_delay_ms(step_Speed);             
 		}
 	
