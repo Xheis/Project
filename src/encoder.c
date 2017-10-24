@@ -27,7 +27,7 @@ void encoder_init(void)
 void encoder_edge_A_isr(void)
 {
     // TODO: Implement A edge logic to increment or decrement _count
-	 if (!!(PIND & _BV(PD2)) == !!(PIND & _BV(PD3)))  _count++;
+	 if (!!(PINA & _BV(PA0)) == !!(PINA & _BV(PA1)))  _count++;
 	else _count--;
 	
 }
@@ -35,7 +35,7 @@ void encoder_edge_A_isr(void)
 void encoder_edge_B_isr(void)
 {
     // TODO: Implement B edge logic to increment or decrement _count
-	 if (!!(PIND & _BV(PD2)) == !!(PIND & _BV(PD3)))  _count--;
+	 if (!!(PINA & _BV(PA0)) == !!(PINA & _BV(PA1)))  _count--;
 	else _count++;
 }
 

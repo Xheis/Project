@@ -13,15 +13,17 @@
 #include <avr/pgmspace.h>
 #include "cmd_line_buffer.h"
 
-
-static int EN_PIN[] = {2,5};
-static int DIR_PIN[]= {3,6};
-static int STEP_PIN[] = {4,7};
+//					   L,R
+static int EN_PIN[] = {4,7};//{2,5}; 
+static int DIR_PIN[]= {2,5};//{3,6};
+static int STEP_PIN[] = {3,6};//{4,7};
 
 // Configure Timer1
 void stepper_init(void)
 {
-
+	DDRD |= (1<<EN_PIN[0])|(1<<EN_PIN[1])|(1<<DIR_PIN[0])|(1<<DIR_PIN[1])|(1<<STEP_PIN[0])|(1<<STEP_PIN[1]);     // Configure PORTD2 -> PORTD7 as outputS
+	PORTD &= ~(1<<EN_PIN[0]);     
+	PORTD &= ~(1<<EN_PIN[1]);                 // Enable driver
 }
 
 void test_stepper()
@@ -29,8 +31,7 @@ void test_stepper()
 	int x,y;
   
       DDRD |= (1<<EN_PIN[0])|(1<<EN_PIN[1])|(1<<DIR_PIN[0])|(1<<DIR_PIN[1])|(1<<STEP_PIN[0])|(1<<STEP_PIN[1]);     // Configure PORTD5, PORTD6, PORTD7 as output
-	  PORTD &= ~(1<<EN_PIN[0]);     
-	  PORTD &= ~(1<<EN_PIN[1]);                 // Enable driver
+
 	
     while (1) 
     {
