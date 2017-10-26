@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int Startup();
-void ChangeDummy(int32_t);
+int8_t Startup();
+void ChangeDummy(int8_t);
 
 #endif

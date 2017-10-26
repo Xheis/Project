@@ -17,39 +17,57 @@
 
 static void _cmd_help(void);
 static void _cmd_test_stepper(void);
-void _cmd_enc(char* arg);
+void _cmd_unknown(char*);
+void _cmd_enc(char*);
+void _cmd_empty(char*);
+
 
 /* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
 typedef struct {
     const char *nameOfFunction;
+    //void (*func)(char*);
     void (*func)(char*);
 } commands_t;
 
 int MaxCommandLength = 4;
-commands_t commandTable[] = {{"help", _cmd_help},
+commands_t commandTable[] = {{"", _cmd_empty},
+                             {"help", _cmd_help},
                              {"enc", _cmd_enc},
-                             {"test", _cmd_test_stepper}};
+                             {"testing_shit", _cmd_test_stepper}};
 
 void cmd_parse(const char * cmd)
 {
     if (cmd == NULL)
     {
-
+        printf_P(PSTR("ERROR: Tried to parse NULL command pointer\n"));
     }
     else
     {
         uint8_t lengthOfCommandTable = 3;
         for (uint8_t i = 0; i < lengthOfCommandTable; i++)
         {
-            if(!strncmp(cmd,commandTable[i].nameOfFunction,MaxCommandLength)) 
+            //Check where the space is, so we can have different length commands
+            int spaceFound = MaxCommandLength;
+            if (strchr(cmd,' '))
             {
-                char* arg;
-                if(sscanf(cmd+MaxCommandLength,"%s",&arg) > 0) //anything after our "command word", is a argument
-                    //strip arg of any excess here
+                spaceFound = strchr(cmd,' ') - cmd; //bloody pointer math.
+
+                //printf_P(PSTR("Space at %" PRId32 "\n"), spaceFound);
+            }
+
+            if(!strncmp(cmd,commandTable[i].nameOfFunction,spaceFound)) 
+            {
+                char arg[80];
+                if(sscanf(cmd+3,"%s",&arg) > 0) //anything after our "command word", is a argument
+                {
                     commandTable[i].func(arg);
+                }
+                commandTable[i].func("");   
                 return; 
             }
         }
+        //OTHERWISE
+        printf_P(PSTR("Unknown command: \"%s\"\n"), cmd);
     }
 }
 /*{
@@ -294,3 +312,11 @@ void _cmd_enc(char* arg)
     }
 }
 void _cmd_test_stepper(void) { return 0; }
+void _cmd_unknown(char* arg)
+{  
+    printf_P(PSTR("Unknown command: \"%s\"\n"),arg); 
+}
+void _cmd_empty(char* arg)
+{  
+    printf_P(PSTR("Unknown command: \"%s\"\n"),arg); 
+}
