@@ -9,4 +9,5 @@ ECHO Date time is Time is %dtStamp%
 ECHO 
 mkdir Logs
 C:/Users/Administrator/Documents/MCHA3000/Coding/workspace/Project/test/bin/test_project.exe -v > "Logs\Unity_%dtStamp%"_Log.txt"
+ECHO Completed on %dtStamp%>>"C:\My folder\Myfile.log"
 type "Logs\Unity_%dtStamp%_Log.txt"
