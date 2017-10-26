@@ -55,6 +55,12 @@ void cmd_parse(const char * cmd)
 
                 //printf_P(PSTR("Space at %" PRId32 "\n"), spaceFound);
             }
+            else if (strchr(cmd,'\n'))
+            {
+                spaceFound = strchr(cmd,'\n') - cmd; //bloody pointer math.
+
+                //printf_P(PSTR("Space at %" PRId32 "\n"), spaceFound);
+            }
 
             if(!strncmp(cmd,commandTable[i].nameOfFunction,spaceFound)) 
             {
@@ -63,7 +69,10 @@ void cmd_parse(const char * cmd)
                 {
                     commandTable[i].func(arg);
                 }
+                else
+                {
                 commandTable[i].func("");   
+                }
                 return; 
             }
         }
@@ -87,7 +96,7 @@ void _cmd_help(void)
     {
         /* code */
         printf_P(PSTR("| %s \n"),commandTable[i].nameOfFunction);
-        _delay_ms(500);
+        _delay_ms(100);
     }
     printf_P(PSTR(" --------------------------------------------------------------- "));
 
