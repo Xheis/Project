@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 void stepper_init(void);
-void test_stepper(void);			//Configure ADC and Timer 1
+//void test_stepper(void);			//Configure ADC and Timer 1
 void set_dir(int,int);
 void set_speed(int,int);
 int get_pwm(float V);

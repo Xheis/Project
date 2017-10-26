@@ -1,9 +1,11 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h> // atoi
 #include <ctype.h>
 #include <string.h>
 #include <inttypes.h> // For PRIxx and SCNxx macros
 #include <avr/pgmspace.h>
+
 #include "cmd_line_buffer.h"
 #include "potentiometer.h"
 #include "encoder.h"
@@ -11,20 +13,21 @@
 #include "stepper.h"
 #include "cmd_parser.h"
 
+
 static void _cmd_help(void);
+static void _cmd_test_stepper(void);
 void _cmd_enc(char* arg);
 
 /* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
-typedef struct 
-{
+typedef struct {
     const char *nameOfFunction;
-    void (*func)(int);
+    void (*func)(char*);
 } commands_t;
 
 int MaxCommandLength = 5;
 commands_t commandTable[] = {{"help", _cmd_help},
                              {"enc", _cmd_enc},
-                             {"test_stepper", test_stepper}};
+                             {"test_stepper", _cmd_test_stepper}};
 
 void cmd_parse(const char * cmd)
 {
@@ -177,7 +180,7 @@ void cmd_parse(const char * cmd)
     }
 }
 */
-
+    
 void _cmd_help(void)
 {
     printf_P(PSTR(
@@ -217,3 +220,4 @@ void _cmd_enc(char* arg)
         printf_P(PSTR("enc: invalid argument \"%s\", syntax is: enc [reset]\n"),arg);
     }
 }
+void _cmd_test_stepper(void) { return 0; }

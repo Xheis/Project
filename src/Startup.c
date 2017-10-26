@@ -1,11 +1,11 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "startup.h"
+#include "Startup.h"
 
 int dummyData = 0;
-int startup()
+int Startup()
 {
-    dummyData;
+    return dummyData;
 }
 
 void ChangeDummy(int newData)
