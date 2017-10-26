@@ -43,7 +43,7 @@ void cmd_parse(const char * cmd)
     }
     else
     {
-        uint8_t lengthOfCommandTable = 3;
+        uint8_t lengthOfCommandTable = sizeof commandTable / sizeof commandTable[0];
         for (uint8_t i = 0; i < lengthOfCommandTable; i++)
         {
             //Check where the space is, so we can have different length commands
@@ -100,6 +100,11 @@ void _cmd_help(void)
         "\n"
     ));
 }
+
+
+
+
+
 void _cmd_enc(char* arg)
 {
     if (!strcmp("reset",arg))

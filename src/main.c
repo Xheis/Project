@@ -25,7 +25,7 @@ int main(void)
     sei();      
 
     // Wait a second at startup
-    _delay_ms(1000);
+    _delay_ms(5000);
 
 
     // Send initial string
