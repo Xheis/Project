@@ -115,7 +115,6 @@ INC_AVR = \
 	$(INC_COMMON)
 
 TARGET_TEST_PARMS = \
-	-v \
 	> test1.txt
 
 SYMBOLS =
