@@ -6,6 +6,7 @@
 #include <string.h>
 #include <inttypes.h> // For PRIxx and SCNxx macros
 #include <avr/pgmspace.h>
+#include <util/delay.h>
 
 #include "cmd_line_buffer.h"
 #include "potentiometer.h"
@@ -74,17 +75,11 @@ void cmd_parse(const char * cmd)
     
 void _cmd_help(void)
 {
-    printf_P(PSTR(
-        "\n"
+    printf_P(PSTR(" --------------------------------------------------------------- "
+        "\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"
         "\n"
     ));
-   
-    printf_P(PSTR("\n"));
-
-    // Describe argument syntax using POSIX.1-2008 convention
-    // see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html
-    printf_P(PSTR(
-        "Available commands:\n"));
+    printf_P(PSTR("Available commands:\n"));
 
     int numberOfCommands = 0;
     numberOfCommands = sizeof commandTable / sizeof commandTable[0];
@@ -92,13 +87,10 @@ void _cmd_help(void)
     {
         /* code */
         printf_P(PSTR("| %s \n"),commandTable[i].nameOfFunction);
+        _delay_ms(500);
     }
+    printf_P(PSTR(" --------------------------------------------------------------- "));
 
-    printf_P(PSTR(
-        " --------------------------------------------------------------- "
-        "\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"
-        "\n"
-    ));
 }
 
 
