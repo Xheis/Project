@@ -115,12 +115,14 @@ INC_AVR = \
 	$(INC_COMMON)
 
 TARGET_TEST_PARMS = \
+	-v \
 	> test1.txt
 
 SYMBOLS =
 
 
 default: dev
+
 
 all: clean test_only build program programcommit
 
@@ -132,7 +134,7 @@ test: clean_test test_only
 
 test_only:
 	gcc $(CFLAGS) $(INC_TEST) $(SYMBOLS) $(SRC_TEST) -o $(TARGET_TEST) $(MISC_TEST)
-	$(TARGET_TEST)$(TARGET_TEST_PARMS)
+	$(PATH_BASE)/test/bin/run_test.bat #in lieu of running the target directly
 	
 
 commit:
