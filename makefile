@@ -72,6 +72,7 @@ SRC_COMMON = \
 	src/cmd_line_buffer.c \
 	src/cmd_parser.c \
 	src/stepper.c \
+	src/Startup.c
 
 
 SRC_TEST = \
@@ -87,7 +88,8 @@ SRC_TEST = \
 	test/src/test_stdio_redirect.c \
 	test/src/test_cmd_parse.c \
 	test/src/test_cmd_process.c \
-	test/src/test_cmd_enc.c
+	test/src/test_cmd_enc.c \
+	test/src/test_Startup.c
 
 
 SRC_AVR = \

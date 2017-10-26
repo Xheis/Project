@@ -25,13 +25,85 @@ typedef struct {
     void (*func)(char*);
 } commands_t;
 
-int MaxCommandLength = 5;
+int MaxCommandLength = 4;
 commands_t commandTable[] = {{"help", _cmd_help},
                              {"enc", _cmd_enc},
-                             {"test_stepper", _cmd_test_stepper}};
+                             {"test", _cmd_test_stepper}};
 
 void cmd_parse(const char * cmd)
 {
+    if (cmd == NULL)
+    {
+
+    }
+    else
+    {
+        uint8_t lengthOfCommandTable = 3;
+        for (uint8_t i = 0; i < lengthOfCommandTable; i++)
+        {
+            if(!strncmp(cmd,commandTable[i].nameOfFunction,MaxCommandLength)) 
+            {
+                char* arg;
+                if(sscanf(cmd+MaxCommandLength,"%s",&arg) > 0) //anything after our "command word", is a argument
+                    //strip arg of any excess here
+                    commandTable[i].func(arg);
+                return; 
+            }
+        }
+    }
+}
+/*{
+    if (cmd == NULL)
+    {
+        printf_P(PSTR("ERROR: Tried to parse NULL command pointer\n"));
+    }
+    else if (*cmd == '\0') // Empty command string
+    {
+        return;
+    }
+    else if (!strncmp_P(cmd, PSTR("help"), 4))
+    {
+        _cmd_help();
+    }
+    else if (!strncmp_P(cmd, PSTR("pot "), 4))
+    {
+        //If you get into this far
+        printf_P(PSTR("pot: invalid argument \"%s\", syntax is: pot\n"),cmd+4);
+    }
+    else if (!strncmp_P(cmd, PSTR("test_stepper"), 4))
+    {
+        //If you get into this far
+        printf_P(PSTR("Testing stepper: A restart is needed to quit out of this\n"));
+        test_stepper();
+    }
+    else if (!strncmp_P(cmd, PSTR("pot"), 3))
+    {
+        printf_P(PSTR("Potentiometer ADC value is %" PRIu16 "\n"), pot_get_value());
+    }
+    else if (!strncmp_P(cmd, PSTR("enc "), 4))
+    {
+        //If you get into this far
+        if (!strcmp("reset",cmd+4))
+        {
+            encoder_set_count(0);
+            printf_P(PSTR("Encoder count reset to 0\n"));
+        }
+        else
+        {
+            //what is this get outta here wtf ya doing
+            printf_P(PSTR("enc: invalid argument \"%s\", syntax is: enc [reset]\n"),cmd+4);
+        }
+    }
+    else if (!strncmp_P(cmd, PSTR("enc"), 3))
+    {
+        printf_P(PSTR("Encoder count is %" PRId32 "\n"), encoder_get_count());
+    }
+    else
+    {
+        printf("Unknown command: \"%s\"\n", cmd);
+    }
+} */
+/*{
     int lengthOfCommandTable = sizeof(commandTable)/sizeof(commandTable[0]);
     for (int i = 0; i < lengthOfCommandTable; i++)
     {
@@ -44,7 +116,7 @@ void cmd_parse(const char * cmd)
             return;
         }
     }
-}
+} */
 /*
 {
     if (cmd == NULL)
