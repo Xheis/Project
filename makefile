@@ -23,9 +23,10 @@ CDEFS = $(COMMONDEFS)
 
 CFLAGS  = -std=c99
 CFLAGS += $(CDEFS)
-#CFLAGS += -Wall
+# 			enables warnings
+CFLAGS += -Wall
 # 			disables warnings
-CFLAGS += -w
+#CFLAGS += -w
 CFLAGS += -Wextra
 CFLAGS += -Wpointer-arith
 CFLAGS += -Wcast-align
