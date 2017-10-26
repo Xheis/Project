@@ -26,15 +26,15 @@ void _cmd_empty(char*);
 /* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
 typedef struct {
     const char *nameOfFunction;
-    //void (*func)(char*);
     void (*func)(char*);
+    const char *helpText;
 } commands_t;
 
 int MaxCommandLength = 4;
-commands_t commandTable[] = {{"", _cmd_empty},
-                             {"help", _cmd_help},
-                             {"enc", _cmd_enc},
-                             {"testing_shit", _cmd_test_stepper}};
+commands_t commandTable[] = {{"", _cmd_empty, ""},
+                             {"help", _cmd_help, "Gives all commands"},
+                             {"enc", _cmd_enc, "Gets and sets enc value"},
+                             {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
 
 void cmd_parse(const char * cmd)
 {
@@ -95,10 +95,10 @@ void _cmd_help(void)
     for (int i = 0; i < numberOfCommands; ++i)
     {
         /* code */
-        printf_P(PSTR("| %s \n"),commandTable[i].nameOfFunction);
+        printf_P(PSTR("| %s        %s \n"),commandTable[i].nameOfFunction,commandTable[i].helpText);
         _delay_ms(100);
     }
-    printf_P(PSTR(" --------------------------------------------------------------- "));
+    printf_P(PSTR(" --------------------------------------------------------------- \n"));
 
 }
 
