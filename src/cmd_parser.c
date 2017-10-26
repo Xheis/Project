@@ -12,9 +12,36 @@
 #include "cmd_parser.h"
 
 static void _cmd_help(void);
-static void _print_chip_pinout(void);
+void _cmd_enc(char* arg);
+
+/* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
+typedef struct 
+{
+    const char *nameOfFunction;
+    void (*func)(int);
+} commands_t;
+
+int MaxCommandLength = 5;
+commands_t commandTable[] = {{"help", _cmd_help},
+                             {"enc", _cmd_enc},
+                             {"test_stepper", test_stepper}};
 
 void cmd_parse(const char * cmd)
+{
+    int lengthOfCommandTable = sizeof(commandTable)/sizeof(commandTable[0]);
+    for (int i = 0; i < lengthOfCommandTable; i++)
+    {
+        if(!strncmp(cmd,commandTable[i].nameOfFunction,MaxCommandLength)) 
+        {
+            char* arg;
+            if(sscanf(cmd+MaxCommandLength,"%s",&arg) > 0) //anything after our "command word", is a argument
+                //strip arg of any excess here
+                commandTable[i].func(arg);
+            return;
+        }
+    }
+}
+/*
 {
     if (cmd == NULL)
     {
@@ -149,7 +176,7 @@ void cmd_parse(const char * cmd)
         printf("Unknown command: \"%s\"\n", cmd);
     }
 }
-
+*/
 
 void _cmd_help(void)
 {
@@ -157,9 +184,7 @@ void _cmd_help(void)
         "\n"
         "\n"
     ));
-
-    _print_chip_pinout();
-    
+   
     printf_P(PSTR("\n"));
 
     // Describe argument syntax using POSIX.1-2008 convention
@@ -176,33 +201,19 @@ void _cmd_help(void)
         "\n"
     ));
 }
-
-void _print_chip_pinout(void)
+void _cmd_enc(char* arg)
 {
-    printf_P(PSTR(
-        "Pin configuration:\n"
-        "\n"
-        "                               .----. ,----.\n"
-        "           :    (XCK/T0)PB0 <->|1    \"   40|<-- PA0(ADC0)  : Potentiometer\n"
-        "           :        (T1)PB1 <->|2        39|<-> PA1(ADC1)  :\n"
-        "           : (INT2/AIN0)PB2 <->|3        38|<-> PA2(ADC2)  :\n"
-        "      !LED :  (OC0/AIN1)PB3 <--|4    A   37|<-> PA3(ADC3)  :\n"
-        "           :       (!SS)PB4 <->|5    T   36|<-> PA4(ADC4)  :\n"
-        "           :      (MOSI)PB5 <->|6    M   35|<-> PA5(ADC5)  :\n"
-        "           :      (MISO)PB6 <->|7    E   34|<-> PA6(ADC6)  :\n"
-        "           :       (SCK)PB7 <->|8    L   33|<-> PA7(ADC7)  :\n"
-        "                     !RESET -->|9        32|<-- AREF\n"
-        "                        VCC ---|10   A   31|--- GND\n"
-        "                        GND ---|11   T   30|--- AVCC\n"
-        "                      XTAL2 <--|12   m   29|<-> PC7(TOSC2) :\n"
-        "                      XTAL1 -->|13   e   28|<-> PC6(TOSC1) :\n"
-        "  RS232 RX :       (RXD)PD0 -->|14   g   27|<-> PC5(TDI)   :\n"
-        "  RS232 TX :       (TXD)PD1 <--|15   a   26|<-> PC4(TDO)   :\n"
-        " Encoder A :      (INT0)PD2 -->|16   3   25|<-> PC3(TMS)   :\n"
-        " Encoder B :      (INT1)PD3 -->|17   2   24|<-- PC2(TCK)   : BTLDR button\n"
-        "           :      (OC1B)PD4 <->|18       23|<-> PC1(SDA)   :\n"
-        "           :      (OC1A)PD5 <->|19       22|<-> PC0(SCL)   :\n"
-        "           :      (ICP1)PD6 <->|20       21|<-> PD7(OC2)   :\n"
-        "                               `-----------'\n"
-    ));
+    if (!strcmp("reset",arg))
+    {
+        encoder_set_count(0);
+        printf_P(PSTR("Encoder count reset to 0\n"));
+    }
+    else if (!strcmp("",arg))
+    {
+        printf_P(PSTR("Encoder count is %" PRId32 "\n"), encoder_get_count());
+    }
+    else
+    {
+        printf_P(PSTR("enc: invalid argument \"%s\", syntax is: enc [reset]\n"),arg);
+    }
 }
