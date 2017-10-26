@@ -95,7 +95,7 @@ void _cmd_help(void)
     for (int i = 0; i < numberOfCommands; ++i)
     {
         /* code */
-        printf_P(PSTR("| %s        %s \n"),commandTable[i].nameOfFunction,commandTable[i].helpText);
+        printf_P(PSTR("| %s \t\t\t\t %s \n"),commandTable[i].nameOfFunction,commandTable[i].helpText);
         _delay_ms(100);
     }
     printf_P(PSTR(" --------------------------------------------------------------- \n"));
