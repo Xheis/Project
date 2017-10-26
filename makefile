@@ -24,9 +24,9 @@ CDEFS = $(COMMONDEFS)
 CFLAGS  = -std=c99
 CFLAGS += $(CDEFS)
 # 			enables warnings
-CFLAGS += -Wall
+#CFLAGS += -Wall
 # 			disables warnings
-#CFLAGS += -w
+CFLAGS += -w
 CFLAGS += -Wextra
 CFLAGS += -Wpointer-arith
 CFLAGS += -Wcast-align
@@ -122,7 +122,7 @@ TARGET_TEST_PARMS = \
 SYMBOLS =
 
 
-default: dev
+default: all >test2.txt
 
 
 all: clean test_only build program programcommit
