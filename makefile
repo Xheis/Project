@@ -114,6 +114,10 @@ INC_TEST = \
 INC_AVR = \
 	$(INC_COMMON)
 
+TARGET_TEST_EXTENSION = \
+	 -v \
+	> test1.txt
+
 SYMBOLS =
 
 
@@ -129,8 +133,8 @@ test: clean_test test_only
 
 test_only:
 	gcc $(CFLAGS) $(INC_TEST) $(SYMBOLS) $(SRC_TEST) -o $(TARGET_TEST) $(MISC_TEST)
-	$(TARGET_TEST) > test.txt 
-	type test.txt
+	$(TARGET_TEST)
+	type test1.txt
 
 commit:
 	$(PATH_BASE)/commit.bat

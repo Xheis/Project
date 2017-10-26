@@ -1,0 +1,1 @@
+test_project.exe -v > Unity_%DT%_Log.txt
