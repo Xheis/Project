@@ -129,13 +129,13 @@ test: clean_test test_only
 
 test_only:
 	gcc $(CFLAGS) $(INC_TEST) $(SYMBOLS) $(SRC_TEST) -o $(TARGET_TEST) $(MISC_TEST)
-	- ./$(TARGET_TEST) -v
+	- ./$(TARGET_TEST) -v > output.txt
 
 commit:
 	$(PATH_BASE)/commit.bat
 
 programcommit:
-	$(PATH_BASE)/program_commit.bat
+	$(PATH_BASE)/program_commit.bat output.txt
 
 programnotestcommit:
 	$(PATH_BASE)/program_no_test_commit.bat
