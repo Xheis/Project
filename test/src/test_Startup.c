@@ -28,8 +28,8 @@ TEST(Startup, Test2)
     TEST_ASSERT_EQUAL_INT32(10, Startup());
 }
 
-TEST_GROUP_RUNNER(Startup)
+/*TEST_GROUP_RUNNER(Startup)
 {
     RUN_TEST_CASE(Startup, Test1);
     RUN_TEST_CASE(Startup, Test2);
-}
+}*/

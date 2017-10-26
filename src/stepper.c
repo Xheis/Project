@@ -1,17 +1,23 @@
-#include <stdint.h>
+#include <avr/pgmspace.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <util/atomic.h>
-#include "stepper.h"
+//#include <avr/delay.h>
 #include <util/delay.h>
+
+#include <util/atomic.h>
+//#include <util/delay.h>
 
 #include <stdio.h>
 #include <stdlib.h> // atoi
+#include <stdint.h>
+
 #include <ctype.h>
 #include <string.h>
 #include <inttypes.h> // For PRIxx and SCNxx macros
-#include <avr/pgmspace.h>
+
+#include "stepper.h"
 #include "cmd_line_buffer.h"
+
 
 //					   L,R
 static int EN_PIN[] = {4,7};//{2,5}; 

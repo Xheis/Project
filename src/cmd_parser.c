@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h> // atoi
+
 #include <ctype.h>
 #include <string.h>
 #include <inttypes.h> // For PRIxx and SCNxx macros

@@ -66,13 +66,13 @@ MATH_LIB = -lm
 LDFLAGS_AVR = $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 
 SRC_COMMON = \
-	src/led.c \
 	src/encoder.c \
 	src/potentiometer.c \
 	src/circ_buffer.c \
 	src/cmd_line_buffer.c \
 	src/cmd_parser.c \
-	src/Startup.c
+	src/stepper.c \
+
 
 SRC_TEST = \
 	$(UNITY_ROOT)/src/unity.c \
@@ -81,18 +81,13 @@ SRC_TEST = \
 	mock/avr/mock_sfr.c \
 	test/src/stdio_redirect.c \
 	test/src/all_tests.c \
-	test/src/test_led.c \
 	test/src/test_encoder.c \
-	test/src/test_potentiometer.c \
 	test/src/test_circ_buffer.c \
 	test/src/test_cmd_line_buffer.c \
 	test/src/test_stdio_redirect.c \
 	test/src/test_cmd_parse.c \
 	test/src/test_cmd_process.c \
-	test/src/test_cmd_led.c \
-	test/src/test_cmd_enc.c \
-	test/src/test_cmd_pot.c \
-	test/src/test_Startup.c
+	test/src/test_cmd_enc.c
 
 
 SRC_AVR = \
@@ -101,7 +96,6 @@ SRC_AVR = \
 	src/encoder_isr.c \
 	src/uart_isr.c \
 	src/uart.c \
-	src/stepper.c \
 	src/task.c
 
 INC_COMMON = \
