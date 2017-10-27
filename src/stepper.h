@@ -11,6 +11,6 @@ void move_set_dist(int);
 void move_set_time(int);
 void set_velocity(float);
 void set_dir(char*);
-
+void move_set_steps(int steps);
 
 #endif

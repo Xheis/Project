@@ -218,6 +218,33 @@ void move_set_dist(int Distance_mm)
 	 delay_ms(velocity_delay[0]); //speed
 	}
 }
+void move_set_steps(int steps)
+{
+	/*
+	 * Distance = Revolutions_needed * WHEEL_RADIUS
+	 * Distance_mm/WHEEL_RADIUS  = Revolutions_needed
+	 * A Revolutions is 360/1.8 = 200 steps in theory.
+	 * 
+	 * Revolutions_needed = Distance_mm/WHEEL_RADIUS
+	 * Steps_for_Distance_mm = (Distance_mm/WHEEL_RADIUS * STEPS_PER_REV * WHEEL_RADIUS)
+	 */
+	printf_P(PSTR("Distance of '%d' \n"), steps);
+	int x,y;
+	for(x=0; x<steps; x++)  //Give step_distance pulses to rotate stepper motor, to move cart Distance_mm
+	{
+	 for(y=0; y<10; y++)
+	 {
+	  PORTD |=(1<<STEP_PIN[0]);
+	  PORTD |=(1<<STEP_PIN[1]);
+	  delay_us(STEP_DELAY);
+	  PORTD &=~(1<<STEP_PIN[0]);
+	  PORTD &=~(1<<STEP_PIN[1]);
+	   delay_us(STEP_DELAY);
+	 }
+	 //printf_P(PSTR("step clockwis\n"));
+	 delay_ms(velocity_delay[0]); //speed
+	}
+}
 // void move_set_dist(int Distance_mm,int stepper)
 // {
 // 	/*
