@@ -144,7 +144,9 @@ void _cmd_empty(char* arg)
 }
 void _cmd_move_set_dist(int Distance_mm) 
 {
+            printf_P(PSTR("OKAY\n"));
     move_set_dist(Distance_mm);
+            printf_P(PSTR("DONE\n"));
 }
 // void _cmd_move_set_dist(int Distance_mm,int stepper)
 // {
@@ -152,13 +154,22 @@ void _cmd_move_set_dist(int Distance_mm)
 // }
 void _cmd_move_set_time(int time_in_sec) 
 {
+            printf_P(PSTR("OKAY\n"));
     move_set_time(time_in_sec);
+    
+            printf_P(PSTR("DONE\n"));
 }
 void _cmd_set_velocity(int velocity)
 {
+            printf_P(PSTR("OKAY\n"));
     set_velocity(velocity);
+
+            printf_P(PSTR("DONE\n"));
 }
 void _cmd_set_dir(char* dir)
 {
+        printf_P(PSTR("OKAY\n"));
+
     set_dir(dir);
+            printf_P(PSTR("DONE\n"));
 }

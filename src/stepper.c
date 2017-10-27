@@ -35,6 +35,9 @@ void stepper_init(void)
 	DDRD |= (1<<EN_PIN[0])|(1<<EN_PIN[1])|(1<<DIR_PIN[0])|(1<<DIR_PIN[1])|(1<<STEP_PIN[0])|(1<<STEP_PIN[1]);     // Configure PORTD2 -> PORTD7 as outputS
 	PORTD &= ~(1<<EN_PIN[0]);     
 	PORTD &= ~(1<<EN_PIN[1]);                 // Enable driver
+
+	//init as forwards
+	set_dir("forwards");
 }
 
 void test_stepper()
@@ -89,22 +92,23 @@ void test_stepper()
 
 void set_dir(char* dir)
 {
-	if(dir == 'forwards')
+
+	if(!strcmp("forwards",dir))
 	{
 		PORTD |= (1<<DIR_PIN[0]);
 		PORTD &= ~(1<<DIR_PIN[1]);                 //Make PORTD6 high to rotate motor in clockwise direction
 	}
-	else if(dir == 'backwards')
+	else if(!strcmp("backwards",dir))
 	{
 		PORTD &= ~(1<<DIR_PIN[0]);                //Make PORTD6 high to rotate motor in clockwise direction
 		PORTD |= (1<<DIR_PIN[1]);             //Make PORTD6 high to rotate motor in anti-clockwise direction
 	}
-	else if(dir == 'left')
+	else if(!strcmp("left",dir))
 	{
 		PORTD &= ~(1<<DIR_PIN[0]);                //Make PORTD6 high to rotate motor in clockwise direction             //Make PORTD6 high to rotate motor in clockwise direction
 		PORTD &= ~(1<<DIR_PIN[1]);
 	}
-	else if(dir == 'right')
+	else if(!strcmp("right",dir))
 	{
 		PORTD |= (1<<DIR_PIN[0]);             //Make PORTD6 high to rotate motor in anti-clockwise direction
 		PORTD |= (1<<DIR_PIN[1]);             //Make PORTD6 high to rotate motor in anti-clockwise direction
@@ -113,6 +117,7 @@ void set_dir(char* dir)
 	{
 		//ERROR
 	}
+	        printf_P(PSTR("Dir set to '%s' \n"), dir);
 }
 void set_velocity(int velocity)
 {
@@ -149,6 +154,7 @@ void set_velocity(int velocity)
 	//set both time delays to be the same. We might want to change this if we intended on having a full range of turning options
 	velocity_delay[0]=Delta_Time;
 	velocity_delay[1]=Delta_Time;
+	printf_P(PSTR("Velocity set to '%d' \n"), velocity);
 }
 
 void move_set_time(int time_in_seconds)
@@ -158,6 +164,8 @@ void move_set_time(int time_in_seconds)
 	 * velocity_delay[0] / 1000 = seconds 
 	 * therefore, step_distance = time_in_seconds/(velocity_delay[0] / 1000)
 	 */
+
+	printf_P(PSTR("Time set for '%d' \n"), time_in_seconds);
 	int step_distance = time_in_seconds/(velocity_delay[0] / 1000);
 	int x,y;
 	for(x=0; x<step_distance; x++)  //Give step_distance pulses to rotate stepper motor, to move cart Distance_mm
