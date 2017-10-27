@@ -25,8 +25,8 @@ static int DIR_PIN[]= {2,5};//{3,6};
 static int STEP_PIN[] = {3,6};//{4,7};
 const int STEP_DELAY = 400; //smoothing factor. Hand tweaked
 const float WHEEL_RADIUS = 0.088; //88mm, polulu
-const float RADIAN_PER_STEP = 0.0314159; //1.8degrees, IN THEORY. Tweak as needed. 
-const int STEPS_PER_REV = 200; //Same as above
+const float RADIAN_PER_STEP = 0.314159;//0.0314159; //18degrees, IN THEORY. Tweak as needed. 
+const int STEPS_PER_REV = 20; //Same as above
 static int velocity_delay[] = {100,100};//{4,7};
 
 // Configure Timer1
