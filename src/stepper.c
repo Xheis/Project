@@ -199,7 +199,7 @@ void move_set_dist(int Distance_mm)
 	 */
 	float Distance_m = ((float)Distance_mm/1000);
 	printf_P(PSTR("Distance_mm %d\nDistance_m %f\n"),Distance_mm,Distance_m);
-	float step_distance_float = (Distance_m/WHEEL_RADIUS) * STEPS_PER_REV * WHEEL_RADIUS;
+	float step_distance_float = ((float)Distance_m/WHEEL_RADIUS) * STEPS_PER_REV;
 	int step_distance = (int)step_distance_float;
 	printf_P(PSTR("Distance of '%d' sets step_distance for '%d' from this float '%f' \n"), Distance_mm, step_distance,step_distance_float);
 	int x,y;
