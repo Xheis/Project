@@ -166,9 +166,10 @@ void move_set_time(int time_in_seconds)
 	 * therefore, step_distance = time_in_seconds/(velocity_delay[0] / 1000)
 	 */
 
-	printf_P(PSTR("Time set for '%d' \n"), time_in_seconds);
-	int step_distance_float = time_in_seconds/(velocity_delay[0] / 1000);
+
+	float step_distance_float = time_in_seconds/(velocity_delay[0] / 1000);
 	int step_distance = (int)step_distance_float;
+	printf_P(PSTR("Time '%d' sets step_distance for '%d' \n"), time_in_seconds, step_distance);
 	int x,y;
 	for(x=0; x<step_distance; x++)  //Give step_distance pulses to rotate stepper motor, to move cart Distance_mm
 	{
@@ -196,7 +197,8 @@ void move_set_dist(int Distance_mm)
 	 * Revolutions_needed = Distance_mm/WHEEL_RADIUS
 	 * Steps_for_Distance_mm = (Distance_mm/WHEEL_RADIUS * STEPS_PER_REV * WHEEL_RADIUS)
 	 */
-	int step_distance = (int)(((float)((float)Distance_mm/1000)/WHEEL_RADIUS * STEPS_PER_REV * WHEEL_RADIUS));
+	float step_distance_float = ((Distance_mm/1000)/WHEEL_RADIUS * STEPS_PER_REV * WHEEL_RADIUS);
+	int step_distance = (int)step_distance_float;
 	printf_P(PSTR("Distance of '%d' sets step_distance for '%d' \n"), Distance_mm, step_distance);
 	int x,y;
 	for(x=0; x<step_distance; x++)  //Give step_distance pulses to rotate stepper motor, to move cart Distance_mm
