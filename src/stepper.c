@@ -155,7 +155,7 @@ void set_velocity(float velocity)
 	//set both time delays to be the same. We might want to change this if we intended on having a full range of turning options
 	velocity_delay[0]=(int)Delta_Time;
 	velocity_delay[1]=(int)Delta_Time;
-	printf_P(PSTR("Velocity '%d' set velocity_delay to '%d'\n"), velocity, velocity_delay[0]);
+	printf_P(PSTR("Velocity '%f' set velocity_delay to '%d'\n"), velocity, velocity_delay[0]);
 }
 
 void move_set_time(int time_in_seconds)
