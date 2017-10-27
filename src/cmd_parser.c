@@ -74,7 +74,7 @@ void cmd_parse(const char * cmd)
             if(!strncmp(cmd,commandTable[i].nameOfFunction,spaceFound)) 
             {
                 char arg[80];
-                if(sscanf(cmd+3,"%s",&arg) > 0) //anything after our "command word", is a argument
+                if(sscanf(cmd+spaceFound,"%s",&arg) > 0) //anything after our "command word", is a argument
                 {
                     commandTable[i].func(arg);
                 }
@@ -156,7 +156,7 @@ void _cmd_move_set_time(int time_in_sec)
 {
             printf_P(PSTR("OKAY\n"));
     move_set_time(time_in_sec);
-    
+
             printf_P(PSTR("DONE\n"));
 }
 void _cmd_set_velocity(int velocity)
