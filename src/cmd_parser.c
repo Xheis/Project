@@ -21,10 +21,10 @@ static void _cmd_test_stepper(void);
 void _cmd_unknown(char*);
 void _cmd_enc(char*);
 void _cmd_empty(char*);
-void _cmd_move_set_dist(int);
+void _cmd_move_set_dist(char*);
 // void _cmd_move_set_dist(int,int);
-void _cmd_move_set_time(int);
-void _cmd_set_velocity(int);
+void _cmd_move_set_time(char*);
+void _cmd_set_velocity(char*);
 void _cmd_set_dir(char*);
 
 /* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
@@ -142,34 +142,31 @@ void _cmd_empty(char* arg)
 {  
     printf_P(PSTR("Unknown command: \"%s\"\n"),arg); 
 }
-void _cmd_move_set_dist(int Distance_mm) 
+void _cmd_move_set_dist(char* Distance_mm) 
 {
-            printf_P(PSTR("OKAY\n"));
-    move_set_dist(Distance_mm);
-            printf_P(PSTR("DONE\n"));
+    printf_P(PSTR("OKAY\n"));
+    move_set_dist(atoi(Distance_mm));
+    printf_P(PSTR("DONE\n"));
 }
 // void _cmd_move_set_dist(int Distance_mm,int stepper)
 // {
 //     move_set_dist(Distance_mm, stepper);
 // }
-void _cmd_move_set_time(int time_in_sec) 
+void _cmd_move_set_time(char* time_in_sec) 
 {
-            printf_P(PSTR("OKAY\n"));
-    move_set_time(time_in_sec);
-
-            printf_P(PSTR("DONE\n"));
+    printf_P(PSTR("OKAY\n"));
+    move_set_time(atoi(time_in_sec));
+    printf_P(PSTR("DONE\n"));
 }
-void _cmd_set_velocity(int velocity)
+void _cmd_set_velocity(char* velocity)
 {
-            printf_P(PSTR("OKAY\n"));
-    set_velocity(velocity);
-
-            printf_P(PSTR("DONE\n"));
+    printf_P(PSTR("OKAY\n"));
+    set_velocity(atof(velocity));
+    printf_P(PSTR("DONE\n"));
 }
 void _cmd_set_dir(char* dir)
 {
-        printf_P(PSTR("OKAY\n"));
-
+    printf_P(PSTR("OKAY\n"));
     set_dir(dir);
-            printf_P(PSTR("DONE\n"));
+    printf_P(PSTR("DONE\n"));
 }

@@ -120,7 +120,7 @@ void set_dir(char* dir)
 	}
 	        printf_P(PSTR("Dir set to '%s' \n"), dir);
 }
-void set_velocity(int velocity)
+void set_velocity(float velocity)
 {
 	/* 
 	 * https://www.embedded.com/design/mcus-processors-and-socs/4006438/Generate-stepper-motor-speed-profiles-in-real-time
