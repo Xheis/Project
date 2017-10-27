@@ -23,6 +23,11 @@
 static int EN_PIN[] = {4,7};//{2,5}; 
 static int DIR_PIN[]= {2,5};//{3,6};
 static int STEP_PIN[] = {3,6};//{4,7};
+const int STEP_DELAY = 400; //smoothing factor. Hand tweaked
+const float WHEEL_RADIUS = 0.088; //88mm, polulu
+const float RADIAN_PER_STEP = 0.0314159; //1.8degrees, IN THEORY. Tweak as needed. 
+const int STEPS_PER_REV = 200; //Same as above
+static int velocity_delay[] = {100,100};//{4,7};
 
 // Configure Timer1
 void stepper_init(void)
@@ -81,78 +86,166 @@ void test_stepper()
 	
 	}
 }
+
+void set_dir(char* dir)
+{
+	if(dir == 'forwards')
+	{
+		PORTD |= (1<<DIR_PIN[0]);
+		PORTD &= ~(1<<DIR_PIN[1]);                 //Make PORTD6 high to rotate motor in clockwise direction
+	}
+	else if(dir == 'backwards')
+	{
+		PORTD &= ~(1<<DIR_PIN[0]);                //Make PORTD6 high to rotate motor in clockwise direction
+		PORTD |= (1<<DIR_PIN[1]);             //Make PORTD6 high to rotate motor in anti-clockwise direction
+	}
+	else if(dir == 'left')
+	{
+		PORTD &= ~(1<<DIR_PIN[0]);                //Make PORTD6 high to rotate motor in clockwise direction             //Make PORTD6 high to rotate motor in clockwise direction
+		PORTD &= ~(1<<DIR_PIN[1]);
+	}
+	else if(dir == 'right')
+	{
+		PORTD |= (1<<DIR_PIN[0]);             //Make PORTD6 high to rotate motor in anti-clockwise direction
+		PORTD |= (1<<DIR_PIN[1]);             //Make PORTD6 high to rotate motor in anti-clockwise direction
+	}
+	else
+	{
+		//ERROR
+	}
+}
+void set_velocity(int velocity)
+{
+	/* 
+	 * https://www.embedded.com/design/mcus-processors-and-socs/4006438/Generate-stepper-motor-speed-profiles-in-real-time
+	 *
+	 * Time_Period can be calcualted by formula provided by embedded.com
+	 * delta-Time = velocity_delay / Clock_Frequency
+	 * Angular_Vel = (Angle_Per_Step*Clock_Frequency)/velocity_delay
+	 *
+	 * That is,
+	 * Delta_Time*Clock_Frequency = Vel_Delay
+	 * Angular_Vel = (Angle_Per_Step*Clock_Frequency)/(Delta-Time*Clock_Frequency)
+	 * Angular_Vel = (Angle_Per_Step)/(Delta-Time)
+	 * Angular_Vel = (1.8°)/Delta_Time
+	 * Easy. We've proven that the steps we send per second, are proportional to RPM. Classic.
+	 * 
+	 * Time to look at that pesky delay, if we need a set angular_velocity
+	 * Say we need, Omega RPM. 
+	 * Omega = (1.8°)/Delta_Time
+	 * Delta_Time = (0.0314159 Radians)/Omega
+	 *
+	 * So if we need, 0.05m/s (5cm/s), we sub in
+	 * Knowing that..
+	 * V = Omega*WHEEL_RADIUS
+	 * Omega = V/WHEEL_RADIUS
+	 * Delta_Time = (0.0314159)/(V/WHEEL_RADIUS)
+	 * Delta_Time = (0.0314159*WHEEL_RADIUS)/(V)
+	 * Delta_Time = (0.0314159*0.08)/(0.05) = 0.05026544 seconds 
+	 * Delta_Time = (1000*0.0314159*0.08)/(0.05) = 50.26544 ms, which we can put into _delay_ms
+	 *
+	 */
+	int Delta_Time = (1000*RADIAN_PER_STEP*0.08)/(velocity);
+	//set both time delays to be the same. We might want to change this if we intended on having a full range of turning options
+	velocity_delay[0]=Delta_Time;
+	velocity_delay[1]=Delta_Time;
+}
+
+void move_set_time(int time_in_seconds)
+{
+	/* should be set by timer, or for now lets go time_in_seconds = velocity_delay
+	 * velocity_delay is in ms
+	 * velocity_delay[0] / 1000 = seconds 
+	 * therefore, step_distance = time_in_seconds/(velocity_delay[0] / 1000)
+	 */
+	int step_distance = time_in_seconds/(velocity_delay[0] / 1000);
+	int x,y;
+	for(x=0; x<step_distance; x++)  //Give step_distance pulses to rotate stepper motor, to move cart Distance_mm
+	{
+		for(y=0; y<10; y++)
+		{
+		PORTD |=(1<<STEP_PIN[0]);
+		PORTD |=(1<<STEP_PIN[1]);
+		_delay_us(STEP_DELAY);
+		PORTD &=~(1<<STEP_PIN[0]);
+		PORTD &=~(1<<STEP_PIN[1]);
+		_delay_us(STEP_DELAY);
+		}
+		//printf_P(PSTR("step clockwis\n"));
+		delay_ms(velocity_delay[0]); //speed
+	}
+}
+
+void move_set_dist(int Distance_mm)
+{
+	/*
+	 * Distance = Revolutions_needed * WHEEL_RADIUS
+	 * Distance_mm/WHEEL_RADIUS  = Revolutions_needed
+	 * A Revolutions is 360/1.8 = 200 steps in theory.
+	 * 
+	 * Revolutions_needed = Distance_mm/WHEEL_RADIUS
+	 * Steps_for_Distance_mm = (Distance_mm/WHEEL_RADIUS * STEPS_PER_REV * WHEEL_RADIUS)
+	 */
+	int step_distance = (Distance_mm/WHEEL_RADIUS * STEPS_PER_REV * WHEEL_RADIUS);
+	int x,y;
+	for(x=0; x<step_distance; x++)  //Give step_distance pulses to rotate stepper motor, to move cart Distance_mm
+	{
+	 for(y=0; y<10; y++)
+	 {
+	  PORTD |=(1<<STEP_PIN[0]);
+	  PORTD |=(1<<STEP_PIN[1]);
+	  _delay_us(STEP_DELAY);
+	  PORTD &=~(1<<STEP_PIN[0]);
+	  PORTD &=~(1<<STEP_PIN[1]);
+	   _delay_us(STEP_DELAY);
+	 }
+	 //printf_P(PSTR("step clockwis\n"));
+	 delay_ms(velocity_delay[0]); //speed
+	}
+}
+// void move_set_dist(int Distance_mm,int stepper)
+// {
+// 	/*
+// 	 * Distance = Revolutions_needed * WHEEL_RADIUS
+// 	 * Distance_mm/WHEEL_RADIUS  = Revolutions_needed
+// 	 * A Revolutions is 360/1.8 = 200 steps in theory.
+// 	 * 
+// 	 * Revolutions_needed = Distance_mm/WHEEL_RADIUS
+// 	 * Steps_for_Distance_mm = (Distance_mm/WHEEL_RADIUS * STEPS_PER_REV * WHEEL_RADIUS)
+// 	 */
+
+// 	int step_distance = (Distance_mm/WHEEL_RADIUS * STEPS_PER_REV * WHEEL_RADIUS);
+// 	int x,y;
+// 	for(x=0; x<step_distance; x++)  //Give step_distance pulses to rotate stepper motor, to move cart Distance_mm
+// 	{
+// 	 for(y=0; y<10; y++)
+// 	 {
+// 	  PORTD |=(1<<STEP_PIN[stepper]);
+// 	  _delay_us(STEP_DELAY);
+// 	  PORTD &=~(1<<STEP_PIN[stepper]);
+// 	   _delay_us(STEP_DELAY);
+// 	 }
+// 	 //printf_P(PSTR("step clockwis\n"));
+// 	 _delay_ms(velocity_delay[stepper]); //speed
+// 	}
+// } 
+
+
 /*
-void set_dir(int stepper, int dir)
-{
-	if (stepper == LEFT)
-	{
-		if(dir == 1)
-		{
-			PORTC |= (1<<PORTC3);
-			PORTC &= ~(1<<PORTC4);
-		}else if(dir == 2)
-		{
-			PORTC |= (1<<PORTC4);
-			PORTC &= ~(1<<PORTC3);
-		}else if(dir == 0)
-		{
-			PORTC &= ~(1<<PORTC3);
-			PORTC &= ~(1<<PORTC4);
-		}
-
-	}
-	else if (stepper == RIGHT)
-	{
-		if(dir == 1)
-		{
-			PORTC |= (1<<PORTC6);
-			PORTC &= ~(1<<PORTC5);
-		}else if(dir == 2)
-		{
-			PORTC |= (1<<PORTC5);
-			PORTC &= ~(1<<PORTC6);
-		}else if(dir == 0)
-		{
-			PORTC &= ~(1<<PORTC5);
-			PORTC &= ~(1<<PORTC6);
-		}
-
-	}
-	else
-	{
-		//Error
-	}
-}
-
-void set_speed(int stepper, int speed)
-{
-	if (stepper == LEFT)
-	{
-		if(speed<0){
-			set_dir(1,1);
-			speed = speed*-1;
-		}else{
-			set_dir(2);
-		}
-		OCR1AL = speed;
-
-	}
-	else if (stepper == RIGHT)
-	{
-		if(speed<0){
-			set_dir(1);
-			speed = speed*-1;
-		}else{
-			set_dir(2);
-		}
-		
-		OCR1BL = speed;
-
-	}
-	else
-	{
-		//Error
-		//testing commit
-	}
-}
+FORGIVE ME FOR I HAVE SIIIIINNNED 
 */
+void delay_ms(uint16_t count)
+{
+  while(count--)
+  {
+    _delay_ms(1);
+  }
+}
+
+void delay_us(uint16_t count)
+{
+  while(count--) 
+  {
+    _delay_us(1);
+  }
+}
