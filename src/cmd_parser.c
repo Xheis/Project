@@ -34,14 +34,14 @@ typedef struct {
     const char *helpText;
 } commands_t;
 
-int MaxCommandLength = 4;
+int MaxCommandLength = 20;
 commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"help", _cmd_help, "Gives all commands"},
                              {"enc", _cmd_enc, "Gets and sets enc value"},
-                             {"move_set_dist", _cmd_enc, "move_set_dist Distance_mm [stepper]"},
-                             {"move_set_time", _cmd_enc, "move_set_time seconds"},
-                             {"set_velocity", _cmd_enc, "set_velocity m/s"},
-                             {"set_dir", _cmd_enc, "set_dir [forwards|backwards|left|right]"},
+                             {"move_set_dist", _cmd_move_set_dist, "move_set_dist Distance_mm [stepper]"},
+                             {"move_set_time", _cmd_move_set_time, "move_set_time seconds"},
+                             {"set_velocity", _cmd_set_velocity, "set_velocity m/s"},
+                             {"set_dir", _cmd_set_dir, "set_dir [forwards|backwards|left|right]"},
                              {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
 
 

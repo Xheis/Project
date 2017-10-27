@@ -166,10 +166,10 @@ void move_set_time(int time_in_seconds)
 		{
 		PORTD |=(1<<STEP_PIN[0]);
 		PORTD |=(1<<STEP_PIN[1]);
-		_delay_us(STEP_DELAY);
+		delay_us(STEP_DELAY);
 		PORTD &=~(1<<STEP_PIN[0]);
 		PORTD &=~(1<<STEP_PIN[1]);
-		_delay_us(STEP_DELAY);
+		delay_us(STEP_DELAY);
 		}
 		//printf_P(PSTR("step clockwis\n"));
 		delay_ms(velocity_delay[0]); //speed
@@ -194,10 +194,10 @@ void move_set_dist(int Distance_mm)
 	 {
 	  PORTD |=(1<<STEP_PIN[0]);
 	  PORTD |=(1<<STEP_PIN[1]);
-	  _delay_us(STEP_DELAY);
+	  delay_us(STEP_DELAY);
 	  PORTD &=~(1<<STEP_PIN[0]);
 	  PORTD &=~(1<<STEP_PIN[1]);
-	   _delay_us(STEP_DELAY);
+	   delay_us(STEP_DELAY);
 	 }
 	 //printf_P(PSTR("step clockwis\n"));
 	 delay_ms(velocity_delay[0]); //speed
@@ -221,9 +221,9 @@ void move_set_dist(int Distance_mm)
 // 	 for(y=0; y<10; y++)
 // 	 {
 // 	  PORTD |=(1<<STEP_PIN[stepper]);
-// 	  _delay_us(STEP_DELAY);
+// 	  delay_us(STEP_DELAY);
 // 	  PORTD &=~(1<<STEP_PIN[stepper]);
-// 	   _delay_us(STEP_DELAY);
+// 	   delay_us(STEP_DELAY);
 // 	 }
 // 	 //printf_P(PSTR("step clockwis\n"));
 // 	 _delay_ms(velocity_delay[stepper]); //speed
