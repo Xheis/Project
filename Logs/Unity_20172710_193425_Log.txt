@@ -1,0 +1,43 @@
+Unity test run 1 of 1
+TEST(Encoder, DefaultCount) PASS
+TEST(Encoder, SetCount) PASS
+TEST(Encoder, QuadratureIncrement)test/src/test_encoder.c:43::FAIL: Expected 1 Was -1. Expected increment for state 1 to 2 transition
+TEST(Encoder, QuadratureDecrement)test/src/test_encoder.c:74::FAIL: Expected -1 Was 1. Expected decrement for state 1 to 4 transition
+TEST(Encoder, PopCount) PASS
+TEST(CircBuffer, EmptyAfterInit) PASS
+TEST(CircBuffer, DequeueNullIfEmpty) PASS
+TEST(CircBuffer, QueueDequeueOneCharacter) PASS
+TEST(CircBuffer, QueueDequeueMultipleCharacters) PASS
+TEST(CircBuffer, QueueToCapacity) PASS
+TEST(CircBuffer, QueueToOverflow) PASS
+TEST(CmdLineBuffer, EmptyAfterInit) PASS
+TEST(CmdLineBuffer, CharLF) PASS
+TEST(CmdLineBuffer, StringLF) PASS
+TEST(CmdLineBuffer, StringCRLF) PASS
+TEST(CmdLineBuffer, StringBackspace) PASS
+TEST(CmdLineBuffer, EmptyLineLF) PASS
+TEST(CmdLineBuffer, EmptyBackspace) PASS
+TEST(CmdLineBuffer, Unterminated) PASS
+TEST(CmdLineBuffer, CharOverflow) PASS
+TEST(CmdLineBuffer, StringOverflow) PASS
+TEST(StdioRedirect, RedirectInString) PASS
+TEST(StdioRedirect, SkipInputChar) PASS
+TEST(StdioRedirect, AddInputChar) PASS
+TEST(StdioRedirect, RedirectOut) PASS
+TEST(StdioRedirect, RedirectInOut) PASS
+TEST(CmdParse, ParseNull) PASS
+TEST(CmdParse, ParseEmpty)test/src/test_cmd_parse.c:43::FAIL: Expected TRUE Was FALSE
+TEST(CmdParse, ParseUnknown) PASS
+TEST(CmdProcess, BufferEmptyAfterParse) PASS
+TEST(CmdProcess, InputBufferOverflow) PASS
+TEST(CmdProcess, SilentIfIncomplete) PASS
+TEST(CmdEnc, GetCount) PASS
+TEST(CmdEnc, ResetCount) PASS
+TEST(CmdEnc, InvalidArgument) PASS
+TEST(Startup, Test1) PASS
+TEST(Startup, Test2) PASS
+
+-----------------------
+37 Tests 3 Failures 0 Ignored 
+FAIL
+Completed on 20172710_193425
