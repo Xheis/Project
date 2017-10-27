@@ -145,6 +145,9 @@ void _cmd_empty(char* arg)
 void _cmd_move_set_dist(char* Distance_mm) 
 {
     printf_P(PSTR("OKAY\n"));
+    printf_P(PSTR("Distance parsed in as a char was %s \n"), Distance_mm);
+
+    printf_P(PSTR("Distance atoi'd is %d \n"), atoi(Distance_mm));
     move_set_dist(atoi(Distance_mm));
     printf_P(PSTR("DONE\n"));
 }
