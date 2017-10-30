@@ -11,7 +11,6 @@
 #include "cmd_line_buffer.h"
 #include "potentiometer.h"
 #include "encoder.h"
-#include "led.h"
 #include "stepper.h"
 #include "cmd_parser.h"
 

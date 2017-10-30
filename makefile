@@ -87,21 +87,20 @@ SRC_TEST = \
 	$(SRC_COMMON) \
 	mock/avr/mock_sfr.c \
 	test/src/iospy.c \
-	test/src/stdio_redirect.c \
 	test/src/all_tests.c \
 	test/src/test_encoder.c \
 	test/src/test_circ_buffer.c \
 	test/src/test_cmd_line_buffer.c \
-	test/src/test_stdio_redirect.c \
+	test/src/test_iospy.c \
 	test/src/test_cmd_parse.c \
 	test/src/test_cmd_process.c \
 	test/src/test_cmd_enc.c \
-	test/src/test_Startup.c	\
+	test/src/test_cmd_xy.c \
 	test/src/test_controller.c \
 	test/src/test_cmd_controller.c \
 	test/src/test_task.c \
-	test/src/test_sin_table.c
-
+	test/src/test_sin_table.c \
+	test/src/test_Startup.c
 
 SRC_AVR = \
 	$(SRC_COMMON) \
