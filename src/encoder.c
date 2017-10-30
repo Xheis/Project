@@ -31,8 +31,8 @@ void encoder_edge_A_isr(void)
     //A = PD2 = int0
     //B = PD3 = int1
 
-    int A = !(PIND & _BV(PD2));
-    int B = !(PIND & _BV(PD3));
+    int A = !(PINA & _BV(PA0));
+    int B = !(PINA & _BV(PA1));
     if (A==B) _count++;
     else _count--;
 }
@@ -43,8 +43,8 @@ void encoder_edge_B_isr(void)
     //A = PD2 = int0
     //B = PD3 = int1
 
-    int A = !(PIND & _BV(PD2));
-    int B = !(PIND & _BV(PD3));
+    int A = !(PINA & _BV(PD1));
+    int B = !(PINA & _BV(PD0));
     if (A==B) _count--;
     else _count++;
 }
