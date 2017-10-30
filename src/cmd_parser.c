@@ -27,6 +27,7 @@ void _cmd_move_set_time(char*);
 void _cmd_set_velocity(char*);
 void _cmd_set_dir(char*);
 void _cmd_move_set_steps(char*);
+void _cmd_log(char*);
 
 /* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
 typedef struct {
@@ -44,6 +45,7 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"set_velocity", _cmd_set_velocity, "set_velocity m/s"},
                              {"set_dir", _cmd_set_dir, "set_dir [forwards|backwards|left|right]"},
                              {"move_set_steps", _cmd_move_set_steps, "move_set_steps steps"},
+                             {"log", _cmd_log, "log [enc] <samples>"},
                              {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
 
 void cmd_parse(const char * cmd)
@@ -179,5 +181,12 @@ void _cmd_move_set_steps(char* steps)
 {
     printf_P(PSTR("OKAY\n"));
     move_set_steps(atoi(steps));
+    printf_P(PSTR("DONE\n"));
+}
+
+void _cmd_log(char* arg)
+{
+    printf_P(PSTR("OKAY\n"));
+    log_cmd(arg);
     printf_P(PSTR("DONE\n"));
 }

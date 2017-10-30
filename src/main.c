@@ -1,4 +1,3 @@
-#include "task.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
@@ -10,7 +9,8 @@
 #include "cmd_parser.h"
 #include "task.h"
 #include "startup.h"
-#include "task.h"
+#include "controller.h"
+#include "log_data.h"
 
 CLB_CREATE_STATIC(clb, 80);
 

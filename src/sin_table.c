@@ -30,7 +30,7 @@ void sin_table_cmd(int argc, const char *argv[])
 
 void sin_table_task(void)
 {
-    float y = _amplitude*sin(2*M_PI*_frequency*_time);
+    float y = _amplitude*sin(2*3.141*_frequency*_time);
     printf_P(PSTR("%.2f,%g\n"), _time, y);
     _time += 0.01f;
     --_n_samples;

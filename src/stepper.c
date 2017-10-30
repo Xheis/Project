@@ -205,6 +205,7 @@ void move_set_dist(int Distance_mm)
 	int x,y;
 	for(x=0; x<step_distance; x++)  //Give step_distance pulses to rotate stepper motor, to move cart Distance_mm
 	{
+		
 	 for(y=0; y<10; y++)
 	 {
 	  PORTD |=(1<<STEP_PIN[0]);

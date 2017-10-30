@@ -10,7 +10,6 @@
 #include "log_data.h"
 
 typedef enum {
-    LOG_POT,
     LOG_ENC
 } LOG_DEVICE_T;
 
@@ -35,14 +34,8 @@ void log_cmd(int argc, const char *argv[])
     _n_samples = n;
     _time = 0.0f;
 
-    if (!strcmp_P(argv[1], PSTR("pot")))
-    {
-        _device = LOG_POT;
-        pot_init();
-        printf_P(PSTR("Time [sec],Potentiometer [V]\n"));
-
-    }
-    else if (!strcmp_P(argv[1], PSTR("enc")))
+    
+    if (!strcmp_P(argv[1], PSTR("enc")))
     {
         _device = LOG_ENC;
         encoder_init();
@@ -62,9 +55,6 @@ void log_task(void)
 {
     switch (_device)
     {
-    case LOG_POT:
-        printf_P(PSTR("%.2f,%g\n"), _time, (float)pot_get_value()*5.0f/POT_FULL_SCALE);
-        break;
     case LOG_ENC:
         printf_P(PSTR("%.2f,%" PRId32 "\n"), _time, encoder_get_count());
         break;

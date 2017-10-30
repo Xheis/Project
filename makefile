@@ -70,12 +70,15 @@ LDFLAGS_AVR = $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 
 SRC_COMMON = \
 	src/encoder.c \
-	src/potentiometer.c \
 	src/circ_buffer.c \
 	src/cmd_line_buffer.c \
 	src/cmd_parser.c \
 	src/stepper.c \
-	src/Startup.c
+	src/Startup.c \
+	src/controller.c \
+	src/task.c \
+	src/sin_table.c \
+	src/log_data.c
 
 
 SRC_TEST = \
@@ -83,6 +86,7 @@ SRC_TEST = \
 	$(UNITY_ROOT)/extras/fixture/src/unity_fixture.c \
 	$(SRC_COMMON) \
 	mock/avr/mock_sfr.c \
+	test/src/iospy.c \
 	test/src/stdio_redirect.c \
 	test/src/all_tests.c \
 	test/src/test_encoder.c \
@@ -92,7 +96,11 @@ SRC_TEST = \
 	test/src/test_cmd_parse.c \
 	test/src/test_cmd_process.c \
 	test/src/test_cmd_enc.c \
-	test/src/test_Startup.c
+	test/src/test_Startup.c	\
+	test/src/test_controller.c \
+	test/src/test_cmd_controller.c \
+	test/src/test_task.c \
+	test/src/test_sin_table.c
 
 
 SRC_AVR = \
@@ -100,8 +108,7 @@ SRC_AVR = \
 	src/main.c \
 	src/encoder_isr.c \
 	src/uart_isr.c \
-	src/uart.c \
-	src/task.c
+	src/uart.c
 
 INC_COMMON = \
 	-Isrc
