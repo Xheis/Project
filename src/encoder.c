@@ -11,13 +11,14 @@ static void _encoder_disable_interrupts(void);
 void encoder_init(void)
 {
     // TODO: Enable pullup resistors (if not done in hardware)
-
+    //done in hardware [tick]
     // TODO: Configure interrupt edge triggers for INT0 and INT1
-	MCUCR |= (0<<ISC11)|(1<<ISC10)|(0<<ISC01)|(1<<ISC00); //something to conigure our register
-	//			(a)(b)(c)(d)=abcd
-	//			(0)|(1)|(0)|(1)=0101
-	
-	// Set default count
+    //to do
+    MCUCR = (1<<ISC11) | (0<<ISC10) |   //int1 ISC11:0 ISC10: 1 = Any logical change, from table 16-1 from datasheet
+            (1<<ISC01) | (0<<ISC00);    //int0 ISC01:0 ISC00: 1 = Any logical change, from table 16-1 from datasheet
+
+
+    // Set default count
     _count = 0;
 
     // Enable interrupts INT0 and INT1
@@ -27,16 +28,25 @@ void encoder_init(void)
 void encoder_edge_A_isr(void)
 {
     // TODO: Implement A edge logic to increment or decrement _count
-	 if (!!(PINA & _BV(PA0)) == !!(PINA & _BV(PA1)))  _count++;
-	else _count--;
-	
+    //A = PD2 = int0
+    //B = PD3 = int1
+
+    int A = !(PIND & _BV(PD2));
+    int B = !(PIND & _BV(PD3));
+    if (A==B) _count++;
+    else _count--;
 }
 
 void encoder_edge_B_isr(void)
 {
-    // TODO: Implement B edge logic to increment or decrement _count
-	 if (!!(PINA & _BV(PA0)) == !!(PINA & _BV(PA1)))  _count--;
-	else _count++;
+    // TODO: Implement A edge logic to increment or decrement _count
+    //A = PD2 = int0
+    //B = PD3 = int1
+
+    int A = !(PIND & _BV(PD2));
+    int B = !(PIND & _BV(PD3));
+    if (A==B) _count--;
+    else _count++;
 }
 
 void encoder_set_count(int32_t count)
@@ -69,16 +79,18 @@ int32_t encoder_pop_count(void)
 void _encoder_enable_interrupts(void)
 {
     // TODO: Enable INT0 and INT1 interrupts
-	GICR = (1<<INT1)|(1<<INT0);
-	//GIFR = (1<<INTF1)|(1<<INTF0)|(0<<INTF2);
-	//sei(); // Enable global interrupts
+    //Enable INT0
+    GICR |= (1<<INT0) | (1<<INT1);
+    //Enable INT1
+   // GICR |= (1<<INT1);
 }
 
 void _encoder_disable_interrupts(void)
 {
     // TODO: Disable INT0 and INT1 interrupts
-	GICR &= ~((1<<INT1)|(1<<INT0));
-	//GIFR = (0<<INTF1)|(0<<INTF0)|(0<<INTF2);
-	//cli(); // Disable global interrupts
+    //Enable INT0
+    GICR &= ~((1<<INT0) | (1<<INT1));
+    //Enable INT1
+   // GICR |= (0<<INT1);
 }
 
