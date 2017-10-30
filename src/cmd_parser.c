@@ -28,6 +28,7 @@ void _cmd_set_velocity(char*);
 void _cmd_set_dir(char*);
 void _cmd_move_set_steps(char*);
 void _cmd_log(char*);
+void _cmd_sin(char*);
 
 /* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
 typedef struct {
@@ -188,5 +189,12 @@ void _cmd_log(char* arg)
 {
     printf_P(PSTR("OKAY\n"));
     log_cmd(arg);
+    printf_P(PSTR("DONE\n"));
+}
+
+void _cmd_sin(char* arg)
+{
+    printf_P(PSTR("OKAY %s\n"),arg);
+    sin_table_cmd(arg);
     printf_P(PSTR("DONE\n"));
 }
