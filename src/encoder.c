@@ -31,8 +31,8 @@ void encoder_edge_A_isr(void)
     //A = PD2 = int0
     //B = PD3 = int1
 
-    int A = !(PINA & _BV(PA0));
-    int B = !(PINA & _BV(PA1));
+    int A = !(PINC & _BV(PC0));
+    int B = !(PINC & _BV(PC1));
     if (A==B) _count++;
     else _count--;
 }
@@ -43,11 +43,35 @@ void encoder_edge_B_isr(void)
     //A = PD2 = int0
     //B = PD3 = int1
 
-    int A = !(PINA & _BV(PA0));
-    int B = !(PINA & _BV(PA1));
+    int A = !(PINC & _BV(PC0));
+    int B = !(PINC & _BV(PC1));
     if (A==B) _count--;
     else _count++;
 }
+
+// void encoder_edge_A_isr(void)
+// {
+//     // TODO: Implement A edge logic to increment or decrement _count
+//     //A = PD2 = int0
+//     //B = PD3 = int1
+
+//     int A = !(PINA & _BV(PA0));
+//     int B = !(PINA & _BV(PA1));
+//     if (A==B) _count++;
+//     else _count--;
+// }
+
+// void encoder_edge_B_isr(void)
+// {
+//     // TODO: Implement A edge logic to increment or decrement _count
+//     //A = PD2 = int0
+//     //B = PD3 = int1
+
+//     int A = !(PINA & _BV(PA0));
+//     int B = !(PINA & _BV(PA1));
+//     if (A==B) _count--;
+//     else _count++;
+// }
 
 void encoder_set_count(int32_t count)
 {
