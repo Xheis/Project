@@ -27,10 +27,10 @@ TEST(Encoder, SetCount)
     TEST_ASSERT_EQUAL_INT32(42, encoder_get_count());
 }
 
-static void raise_A(void) { mock_portd |=   1 << 2 ; }  // Raise PD2/INT0/chA
-static void raise_B(void) { mock_portd |=   1 << 3 ; }  // Raise PD3/INT1/chB
-static void lower_A(void) { mock_portd &= ~(1 << 2); }  // Lower PD2/INT0/chA
-static void lower_B(void) { mock_portd &= ~(1 << 3); }  // Lower PD3/INT1/chB
+static void raise_A(void) { mock_porta |=   1 << 0 ; }  // Raise PD2/INT0/chA
+static void raise_B(void) { mock_porta |=   1 << 1 ; }  // Raise PD3/INT1/chB
+static void lower_A(void) { mock_porta &= ~(1 << 0); }  // Lower PD2/INT0/chA
+static void lower_B(void) { mock_porta &= ~(1 << 1); }  // Lower PD3/INT1/chB
 
 TEST(Encoder, QuadratureIncrement)
 {
