@@ -18,7 +18,7 @@ dV0= 0;
 %         0,          0,      0];
 %Original Matrixes-----------------
 A =    [-c/(m*L*L),  m*g*L, c/L;
-        1/(m*L*L),   0,     1/L;
+        1/(m*L*L),   0,     -1/L;
         0,          0,      0];
 
     
@@ -69,11 +69,11 @@ xlabel('Time (sec)')
 ylabel('x (m)')
 
 subplot(2,2,4)
-plot(t,V,t,ri,'r')
+plot(t,V,t,u,'r')
 grid on
 xlim([0 tsim])
 xlabel('Time (sec)')
-ylabel('ri (m/s)')
+ylabel('Control Sig & Output (m/s)')
 legend('Actual','Demanded','Location','Best')
 
 figure(2);clf
