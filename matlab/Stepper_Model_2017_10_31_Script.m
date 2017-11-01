@@ -17,6 +17,12 @@ g = 9.82;           % Acceleration due to gravity (m/s/s)
 theta0 = 5*pi/180;  % Initial angle (rad = deg*pi/180)
 dV0 = 0.01;
 
+
+Velocity_Max = 0.5;
+Velocity_Min = -0.5;
+%% Signal Generation
+
+Velocity_Step = 0.1;
 %% Calculating K-Gain
 % A =    [-c/(m*L*L),  0,      c/L;
 %         1/(m*L*L),   0,      1/L;
@@ -36,7 +42,7 @@ B = [0;
  D = 0;
 %----------------------------------
 
-poles=[-5,-6,-9];
+poles=[-1,-3,-5]; %[-5,-6,-9];
 
 K=place(A,B,poles);
 N= 1/((C-D*K)/(B*K-A)*B+D);
