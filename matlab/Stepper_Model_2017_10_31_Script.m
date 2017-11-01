@@ -16,7 +16,7 @@ theta0 = 5*pi/180;  % Initial angle (rad = deg*pi/180)
 % A =    [-c/(m*L*L),  0,      c/L;
 %         1/(m*L*L),   0,      1/L;
 %         0,          0,      0];
-
+%Original Matrixes-----------------
 A =    [-c/(m*L*L),  0,      c/L;
         1/(m*L*L),   0,      1/L;
         0,          0,      0];
@@ -25,11 +25,21 @@ B = [0;
      0;
      1];
  
- poles=[-5,-7,-9];
+ C = [0;0;0]
  
- K=place(A,B,poles);
- 
- Controller_Gain = K;
+ D = 1;
+%----------------------------------
+N= 1/((C-D*K)/(B*K-A)*B+D);
+
+
+
+poles=[-5,-6,-7];
+
+K=place(A,B,poles);
+
+%A_new = A-B*K;
+
+Controller_Gain = 1 %K(3);
 %%  
 %sym theta v x omega
 
@@ -42,17 +52,12 @@ B = [0;
 % -----------------------------------
 
 % Outer (velocity) controller parameters
-K2 = 0.0402;
-
-
-
-% Outer (velocity) controller parameters
 TF_Theta_To_V_Gain = 1;
 TF_Theta_To_X_Gain = 1;
 
 
 % Run simulation
-tsim = 60;
+tsim = 30;
 sim('Stepper_Model_2017_10_31');
 
 % Plot results
