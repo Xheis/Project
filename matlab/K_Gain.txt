@@ -1,0 +1,33 @@
+%% Calculating K-Gain
+% A =    [-c/(m*L*L),  0,      c/L;
+%         1/(m*L*L),   0,      1/L;
+%         0,          0,      0];
+%Original Matrixes-----------------
+A =    [-c/(m*L*L),  M*g*L, c/L;
+        1/(m*L*L),   0,     1/L;
+        0,          0,      0];
+
+    
+B = [0;
+     0;
+     1];
+ 
+ C = [0;0;0];
+ 
+ D = 1;
+%----------------------------------
+
+%Some negative poles
+poles=[-5,-6,-9];
+
+
+K=place(A,B,poles);
+N= 1/((C-D*K)/(B*K-A)*B+D);
+
+%A_new = A-B*K;
+
+
+>>>
+K =
+
+  133.0952  149.3373   19.6094
