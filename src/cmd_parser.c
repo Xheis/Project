@@ -46,6 +46,7 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"set_dir", _cmd_set_dir, "set_dir [forwards|backwards|left|right]"},
                              {"move_set_steps", _cmd_move_set_steps, "move_set_steps steps"},
                              {"log", _cmd_log, "log [enc] <samples>"},
+                             {"log", _cmd_sin, "sin <# Args> Args[]"},
                              {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
 
 void cmd_parse(const char * cmd)
@@ -193,7 +194,21 @@ void _cmd_log(char* arg)
 
 void _cmd_sin(char* arg)
 {
+    //delimit into array
+    int i;
+    char *p = strtok (arg, " "); //delimit shit by space
+    char *array[80]; //we know that it'll take the format "sin", "10", "1.0", "5.0", and we've hardcoded 80
+
+    while (p != NULL)
+    {
+        array[i] = p;
+        p = strtok (NULL, " "); //return the next string
+        i++; //incriment through the array
+    }
+
+    array[i] = NULL;
+
     printf_P(PSTR("OKAY %s\n"),arg);
-    sin_table_cmd(arg);
+    sin_table_cmd(i, array);
     printf_P(PSTR("DONE\n"));
 }
