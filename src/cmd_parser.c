@@ -29,6 +29,30 @@ void _cmd_move_set_steps(char*);
 void _cmd_log(char*);
 void _cmd_sin(char*);
 void _cmd_set(char*);
+void _cmd_get(char*);
+
+static float x;
+static float y;
+static float VRef;
+static float V;
+static float Theta;
+static float Rho;
+static float b;
+
+void setX(float tempX) { x = tempX; }
+void setY(float tempY) { y = tempY; }
+void setVRef(float tempVRef) { VRef = tempVRef; }
+void setV(float tempV) { V = tempV; }
+void setTheta(float tempTheta) { Theta = tempTheta; }
+void setRho(float tempRho) { Rho = tempRho; }
+void setB(float tempB) { b = tempB; }
+float getX(void) { return x; }
+float getY(void) { return y; }
+float getVRef(void) { return VRef; }
+float getV(void) { return V; }
+float getTheta(void) { return Theta; }
+float getRho(void) { return Rho; }
+float getB(void) { return b; }
 
 /* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
 typedef struct {
@@ -49,6 +73,7 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"log", _cmd_log, "log [enc] <samples>"},
                              {"sin", _cmd_sin, "sin <# Args> Args[]"},
                              {"set", _cmd_set, "set [theta|pho] <value>"},
+                             {"set", _cmd_get, "get [theta|pho]"},
                              {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
 
 void cmd_parse(const char * cmd)
@@ -215,4 +240,114 @@ void _cmd_sin(char* arg)
     printf_P(PSTR("DONE\n"));
 }
 
-void _cmd_set(char*);
+void _cmd_set(char* cmd)
+{
+    char * varSelect;
+    char * setValue;
+    uint8_t EOF_Found = 0;
+    uint8_t f_index = 0;
+    uint8_t Blank_Found = 0;
+    //uint8_t Negative = 0;
+    //check it's not an overflow, now that there's much we can do
+    for(int index = 4; index < 8; index++) 
+    {
+        
+        //if(*(cmd+index) == '\n')
+        if((cmd[index]) == '\0')
+        {
+            if (index == 4)
+            {
+                //blank entry
+                Blank_Found++;
+                break;
+            }
+            //EOF found
+            EOF_Found++;
+            break;
+        }
+    }
+
+
+    varSelect = (cmd + 4);
+    varSelect[1] = '\0'; //terminate the string early, 'cause we're shit.
+    setValue = (cmd+6);
+
+    if (!strncmp_P(varSelect, PSTR("x"), 1))
+    {
+       /* code */
+        setX(atof(setValue));//x = atof(setValue);
+
+    } 
+    else if (!strncmp_P(varSelect, PSTR("y"), 1))
+    {
+       /* code */
+        //y = atof(setValue);
+        setY(atof(setValue));
+    }     
+    else if (!strncmp_P(varSelect, PSTR("vref"), 1))
+    {
+        setVRef(atof(setValue));
+    }    
+    else if (!strncmp_P(varSelect, PSTR("v"), 1))
+    {
+        setV(atof(setValue));
+    }    
+    else if (!strncmp_P(varSelect, PSTR("theta"), 1))
+    {
+        setTheta(atof(setValue));
+    }           
+    else if (!strncmp_P(varSelect, PSTR("rho"), 1))
+    {
+        setRho(atof(setValue));
+    }                
+    else if (!strncmp_P(varSelect, PSTR("b"), 1))
+    {
+        setB(atof(setValue));
+    }     
+    else
+    {
+    //shit
+    }
+}
+
+void _cmd_get(char* cmd)
+{
+     char * varSelect;
+
+    varSelect = (cmd + 4);
+    //varSelect[1] = '\0'; //terminate the string early, 'cause we're shit.
+
+
+        if (!strncmp_P(varSelect, PSTR("x"), 1))
+       {
+            printf_P(PSTR("%s is %f\n"), varSelect, getX());
+       } 
+        else if (!strncmp_P(varSelect, PSTR("y"), 1))
+       {
+            printf_P(PSTR("%s is %f\n"), varSelect, getY());
+       }  
+        else if (!strncmp_P(varSelect, PSTR("vref"), 1))
+       {
+            printf_P(PSTR("%s is %f\n"), varSelect, getVRef());
+       }    
+        else if (!strncmp_P(varSelect, PSTR("v"), 1))
+       {
+            printf_P(PSTR("%s is %f\n"), varSelect, getV());
+       }    
+        else if (!strncmp_P(varSelect, PSTR("theta"), 1))
+       {
+            printf_P(PSTR("%s is %f\n"), varSelect, getTheta());
+       }     
+        else if (!strncmp_P(varSelect, PSTR("Rho"), 1))
+       {
+            printf_P(PSTR("%s is %f\n"), varSelect, getRho());
+       }   
+       else if (!strncmp_P(varSelect, PSTR("b"), 1))
+       {
+            printf_P(PSTR("%s is %f\n"), varSelect, getB());
+       }    
+       else
+       {
+        //shit
+       }
+}
