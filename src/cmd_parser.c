@@ -30,6 +30,7 @@ void _cmd_log(char*);
 void _cmd_sin(char*);
 void _cmd_set(char*);
 void _cmd_get(char*);
+void _cmd_ctrl(void);
 
 static float x;
 static float y;
@@ -74,6 +75,7 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"sin", _cmd_sin, "sin <# Args> Args[]"},
                              {"set", _cmd_set, "set [theta|pho] <value>"},
                              {"get", _cmd_get, "get [theta|pho]"},
+                             {"ctrl", _cmd_ctrl, "ctrl - returns next step in controller"},
                              {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
 
 void cmd_parse(const char * cmd)
@@ -369,4 +371,10 @@ void _cmd_get(char* cmd)
         //shit
        	printf_P(PSTR("SHIT; x was %f \n"),getX());
        }
+}
+
+
+void _cmd_ctrl()
+{
+	printf_P(PSTR("%f\n"), ctrl_run(getY(),getTheta(),getV()));
 }

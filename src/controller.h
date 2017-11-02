@@ -4,7 +4,7 @@
 enum {
     CTRL_N_INPUT  = 3, // number of reference signals and plant states : REF*,v,Theta
     CTRL_N_STATE  = 1, // number of controller states : 1, just cause
-    CTRL_N_OUTPUT = 1, // number of controller outputs : F
+    CTRL_N_OUTPUT = 1, // number of controller outputs : V'
 };
 
 void ctrl_init(void);
