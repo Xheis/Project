@@ -299,6 +299,7 @@ void _cmd_set(char* cmd)
     }    
     else if (!strncmp_P(varSelect, PSTR("theta"), 1))
     {
+    	setValue = (setValue+4);
        	printf_P(PSTR("OKAY, %S found. Setting it from %s to %f \n"),varSelect,setValue,atof(setValue));
         setTheta(atof(setValue));
     }           
