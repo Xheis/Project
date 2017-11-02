@@ -28,6 +28,7 @@ void _cmd_set_dir(char*);
 void _cmd_move_set_steps(char*);
 void _cmd_log(char*);
 void _cmd_sin(char*);
+void _cmd_set(char*);
 
 /* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
 typedef struct {
@@ -46,7 +47,8 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"set_dir", _cmd_set_dir, "set_dir [forwards|backwards|left|right]"},
                              {"move_set_steps", _cmd_move_set_steps, "move_set_steps steps"},
                              {"log", _cmd_log, "log [enc] <samples>"},
-                             {"log", _cmd_sin, "sin <# Args> Args[]"},
+                             {"sin", _cmd_sin, "sin <# Args> Args[]"},
+                             {"set", _cmd_set, "set [theta|pho] <value>"},
                              {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
 
 void cmd_parse(const char * cmd)
@@ -212,3 +214,5 @@ void _cmd_sin(char* arg)
     sin_table_cmd(i, array);
     printf_P(PSTR("DONE\n"));
 }
+
+void _cmd_set(char*);

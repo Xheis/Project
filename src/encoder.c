@@ -19,7 +19,7 @@ static void _encoder_disable_interrupts(void);
 
 const A=2;
 const B=3;
-
+//https://github.com/buxtronix/arduino/tree/master/libraries/Rotary
     //A = PD2 = int0
     //B = PD3 = int1
 
