@@ -242,6 +242,8 @@ void _cmd_sin(char* arg)
 
 void _cmd_set(char* cmd)
 {
+	printf_P(PSTR("OKAY\n"));
+    printf_P(PSTR("Parsed char was %s \n"), cmd);
     char * varSelect;
     char * setValue;
     uint8_t EOF_Found = 0;
@@ -268,9 +270,9 @@ void _cmd_set(char* cmd)
     }
 
 
-    varSelect = (cmd + 4);
+    varSelect = (cmd);
     varSelect[1] = '\0'; //terminate the string early, 'cause we're shit.
-    setValue = (cmd+6);
+    setValue = (cmd+2);
 
     if (!strncmp_P(varSelect, PSTR("x"), 1))
     {
@@ -320,9 +322,12 @@ void _cmd_set(char* cmd)
 
 void _cmd_get(char* cmd)
 {
+
+	printf_P(PSTR("OKAY\n"));
+    printf_P(PSTR("Parsed char was %s \n"), cmd);
      char * varSelect;
 
-    varSelect = (cmd + 4);
+    varSelect = (cmd);
     //varSelect[1] = '\0'; //terminate the string early, 'cause we're shit.
 
 
