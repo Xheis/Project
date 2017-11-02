@@ -105,13 +105,16 @@ void cmd_parse(const char * cmd)
             if(!strncmp(cmd,commandTable[i].nameOfFunction,spaceFound)) 
             {
                 char arg[80];
+        		printf_P(PSTR("Command: %s | SpaceFound: %d | "), cmd, spaceFound);
                 if(sscanf(cmd+spaceFound,"%s",&arg) > 0) //anything after our "command word", is a argument
                 {
+                	printf_P(PSTR("Arg: %s \n"), arg);
                     commandTable[i].func(arg);
                 }
                 else
                 {
-                commandTable[i].func("");   
+					printf_P(PSTR("No Arg \n"));
+                	commandTable[i].func("");   
                 }
                 return; 
             }
