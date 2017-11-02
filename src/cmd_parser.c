@@ -106,7 +106,7 @@ void cmd_parse(const char * cmd)
             {
                 char arg[80];
         		printf_P(PSTR("Command: %s | SpaceFound: %d | "), cmd, spaceFound);
-                if(sscanf(cmd+spaceFound,"*",&arg) > 0) //anything after our "command word", is a argument
+                if(strcpy(&arg, cmd+spaceFound)) //if(sscanf(cmd+spaceFound,"*",&arg) > 0) //anything after our "command word", is a argument
                 {
                 	printf_P(PSTR("Arg: %s \n"), arg);
                     commandTable[i].func(arg);
