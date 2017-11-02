@@ -330,12 +330,13 @@ void _cmd_get(char* cmd)
     printf_P(PSTR("Parsed char was %s \n"), cmd);
      char * varSelect;
 
-    varSelect = (cmd);
+    varSelect = cmd;
     //varSelect[1] = '\0'; //terminate the string early, 'cause we're shit.
 
 
         if (!strncmp_P(varSelect, PSTR("x"), 1))
        {
+       		printf_P(PSTR("OKAY, X found\n"));
             printf_P(PSTR("%s is %f\n"), varSelect, getX());
        } 
         else if (!strncmp_P(varSelect, PSTR("y"), 1))
@@ -365,5 +366,6 @@ void _cmd_get(char* cmd)
        else
        {
         //shit
+       	printf_P(PSTR("SHIT\n"));
        }
 }
