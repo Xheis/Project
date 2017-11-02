@@ -67,8 +67,8 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"enc", _cmd_enc, "Gets and sets enc value"},
                              {"move_set_dist", _cmd_move_set_dist, "move_set_dist Distance_mm [stepper]"},
                              {"move_set_time", _cmd_move_set_time, "move_set_time seconds"},
-                             {"set_velocity", _cmd_set_velocity, "set_velocity m/s"},
-                             {"set_dir", _cmd_set_dir, "set_dir [forwards|backwards|left|right]"},
+                             //{"set_velocity", _cmd_set_velocity, "set_velocity m/s"},
+                             //{"set_dir", _cmd_set_dir, "set_dir [forwards|backwards|left|right]"},
                              {"move_set_steps", _cmd_move_set_steps, "move_set_steps steps"},
                              {"log", _cmd_log, "log [enc] <samples>"},
                              {"sin", _cmd_sin, "sin <# Args> Args[]"},
@@ -303,7 +303,15 @@ void _cmd_set(char* cmd)
     else if (!strncmp_P(varSelect, PSTR("b"), 1))
     {
         setB(atof(setValue));
-    }     
+    }                    
+    else if (!strncmp_P(varSelect, PSTR("dir"), 1))
+    {
+        set_dir(setValue);
+    }                     
+    else if (!strncmp_P(varSelect, PSTR("velocity"), 1))
+    {
+        set_velocity(atof(setValue));
+    }    
     else
     {
     //shit
