@@ -299,6 +299,7 @@ void _cmd_set(char* cmd)
     }    
     else if (!strncmp_P(varSelect, PSTR("theta"), 1))
     {
+       	printf_P(PSTR("OKAY, %S found. Setting it from %s to %f \n"),varSelect,setValue,atof(setValue));
         setTheta(atof(setValue));
     }           
     else if (!strncmp_P(varSelect, PSTR("rho"), 1))
@@ -336,7 +337,6 @@ void _cmd_get(char* cmd)
 
         if (!strncmp_P(varSelect, PSTR("x"), 1))
        {
-       		printf_P(PSTR("OKAY, X found\n"));
             printf_P(PSTR("%s is %f\n"), varSelect, getX());
        } 
         else if (!strncmp_P(varSelect, PSTR("y"), 1))
