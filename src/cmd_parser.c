@@ -73,7 +73,7 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"log", _cmd_log, "log [enc] <samples>"},
                              {"sin", _cmd_sin, "sin <# Args> Args[]"},
                              {"set", _cmd_set, "set [theta|pho] <value>"},
-                             {"set", _cmd_get, "get [theta|pho]"},
+                             {"get", _cmd_get, "get [theta|pho]"},
                              {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
 
 void cmd_parse(const char * cmd)
