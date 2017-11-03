@@ -76,7 +76,7 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"set", _cmd_set, "set [theta|pho] <value>"},
                              {"get", _cmd_get, "get [theta|pho]"},
                              {"ctrl", _cmd_ctrl, "ctrl - returns next step in controller"},
-                             {"testing_shit", _cmd_test_stepper, "runs a stepper test suite"}};
+                             {"testing_stepper", _cmd_test_stepper, "runs a stepper test suite"}};
 
 void cmd_parse(const char * cmd)
 {
@@ -315,10 +315,12 @@ void _cmd_set(char* cmd)
     }                    
     else if (!strncmp_P(varSelect, PSTR("dir"), 1))
     {
+    	setValue = (setValue+2);
         set_dir(setValue);
     }                     
     else if (!strncmp_P(varSelect, PSTR("velocity"), 1))
     {
+    	setValue = (setValue+7);
         set_velocity(atof(setValue));
     }    
     else
