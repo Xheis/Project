@@ -82,7 +82,9 @@ void task_enable(void)
     _task_enable_trigger_isr();     // enable output compare interrupt
     
     printf_P(PSTR("3\n"));
+    printf_P(PSTR("4\n"));
     printf_P(PSTR("End task_enable\n"));
+    printf_P(PSTR("5\n"));
 }
 
 void task_disable(void)
