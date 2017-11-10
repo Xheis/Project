@@ -1,0 +1,59 @@
+Unity test run 1 of 1
+TEST(Encoder, DefaultCount) PASS
+TEST(Encoder, SetCount) PASS
+TEST(Encoder, QuadratureIncrement) PASS
+TEST(Encoder, QuadratureDecrement) PASS
+TEST(Encoder, PopCount) PASS
+TEST(CircBuffer, EmptyAfterInit) PASS
+TEST(CircBuffer, DequeueNullIfEmpty) PASS
+TEST(CircBuffer, QueueDequeueOneCharacter) PASS
+TEST(CircBuffer, QueueDequeueMultipleCharacters) PASS
+TEST(CircBuffer, QueueToCapacity) PASS
+TEST(CircBuffer, QueueToOverflow) PASS
+TEST(CmdLineBuffer, EmptyAfterInit) PASS
+TEST(CmdLineBuffer, CharLF) PASS
+TEST(CmdLineBuffer, StringLF) PASS
+TEST(CmdLineBuffer, StringCRLF) PASS
+TEST(CmdLineBuffer, StringBackspace) PASS
+TEST(CmdLineBuffer, EmptyLineLF) PASS
+TEST(CmdLineBuffer, EmptyBackspace) PASS
+TEST(CmdLineBuffer, Unterminated) PASS
+TEST(CmdLineBuffer, CharOverflow) PASS
+TEST(CmdLineBuffer, StringOverflow) PASS
+TEST(IOSpy, RedirectInString) PASS
+TEST(IOSpy, SkipInputChar) PASS
+TEST(IOSpy, AddInputChar) PASS
+TEST(IOSpy, RedirectOut) PASS
+TEST(IOSpy, RedirectOutTwice) PASS
+TEST(IOSpy, RedirectOutTwiceAgain) PASS
+TEST(IOSpy, RedirectInOut) PASS
+TEST(StdioRedirect, RedirectInString) PASS
+TEST(StdioRedirect, SkipInputChar) PASS
+TEST(StdioRedirect, AddInputChar) PASS
+TEST(StdioRedirect, RedirectOut) PASS
+TEST(StdioRedirect, RedirectInOut) PASS
+TEST(CmdParse, ParseNull) PASS
+TEST(CmdParse, ParseEmpty)test/src/test_cmd_parse.c:43::FAIL: Expected TRUE Was FALSE
+TEST(CmdParse, ParseUnknown) PASS
+TEST(CmdProcess, BufferEmptyAfterParse) PASS
+TEST(CmdProcess, InputBufferOverflow) PASS
+TEST(CmdProcess, SilentIfIncomplete) PASS
+TEST(CmdEnc, GetCount)test/src/test_cmd_enc.c:38::FAIL: Expected 'Encoder count is 24\n' Was 'Command: enc | SpaceFound: 20 | Arg: \n'
+TEST(CmdEnc, ResetCount)test/src/test_cmd_enc.c:57::FAIL: Expected 'Encoder count reset to 0\n' Was 'Command: enc reset | SpaceFound: 3 | Arg: reset\n'
+TEST(CmdEnc, InvalidArgument)test/src/test_cmd_enc.c:75::FAIL: Expected 'enc: invalid argument "derp", syntax is: enc [reset]\n' Was 'Command: enc derp | SpaceFound: 3 | Arg: derp\n'
+TEST(CmdXY, InitialXZero)test/src/test_cmd_xy.c:60::FAIL: Expected 1 Was 0. Attempted to scan 'Command: get x | SpaceFound: 3 | Arg: x\nOKAY\nParsed char was x \nx is 0.000000\n' using format 'x is %g\n'
+TEST(CmdXY, InitialYZero)test/src/test_cmd_xy.c:60::FAIL: Expected 1 Was 0. Attempted to scan 'Command: get y | SpaceFound: 3 | Arg: y\nOKAY\nParsed char was y \ny is 0.000000\n' using format 'y is %g\n'
+TEST(CmdXY, SetGetX)test/src/test_cmd_xy.c:35::FAIL: Expected '' Was 'Command: set x 3.4 | SpaceFound: 3 | Arg: x 3.4\nOKAY\nParsed char was x 3.4 \n'
+TEST(CmdXY, SetGetY)test/src/test_cmd_xy.c:35::FAIL: Expected '' Was 'Command: set y 4.9 | SpaceFound: 3 | Arg: y 4.9\nOKAY\nParsed char was y 4.9 \n'
+TEST(CmdXY, MultiplyXY)test/src/test_cmd_xy.c:35::FAIL: Expected '' Was 'Command: set x 7.3 | SpaceFound: 3 | Arg: x 7.3\nOKAY\nParsed char was x 7.3 \n'
+TEST(Ctrl, ZeroInitialState) PASS
+TEST(Ctrl, SetState) PASS
+TEST(Ctrl, OneStepAx)test/src/test_controller.c:42::FAIL: Element 0 Expected 0.086677 Was 0.077548
+TEST(Ctrl, OneStepBu)test/src/test_controller.c:55::FAIL: Element 0 Expected 0.057098 Was 0.068151
+TEST(Ctrl, OutputCx)test/src/test_controller.c:67::FAIL: Element 0 Expected 0.15 Was 3.719
+TEST(Ctrl, OutputDu)test/src/test_controller.c:79::FAIL: Element 0 Expected 0.0 Was -14.352301
+TEST(Ctrl, RunSteps)test/src/test_controller.c:104::FAIL: Element 0 Expected 0.15 Was -10.633301
+TEST(CmdCtrl, SetVRefSilent)test/src/test_cmd_controller.c:35::FAIL: Expected '' Was 'Command: set vref 3.14 | SpaceFound: 3 | Arg: vref 3.14\nOKAY\nParsed char was vr'
+TEST(CmdCtrl, SetVSilent)test/src/test_cmd_controller.c:35::FAIL: Expected '' Was 'Command: set v 2.72 | SpaceFound: 3 | Arg: v 2.72\nOKAY\nParsed char was v 2.72 \n'
+TEST(CmdCtrl, SetThetaSilent)test/src/test_cmd_controller.c:35::FAIL: Expected '' Was 'Command: set theta 1.62 | SpaceFound: 3 | Arg: theta 1.62\nOKAY\nParsed char was '
+TEST(CmdCtrl, CtrlReturnsValue)Completed on 20171011_130045

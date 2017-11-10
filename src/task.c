@@ -43,7 +43,9 @@ void task_init(void)
         OCRn = 71.0048
      */
     // Set TOP value for 100Hz operation (14.7456MHz XTAL)
-    OCR2 = 71; //OCR0 is our Compare Match, e.g. our timer will cycle 0x00 -> 0xFF, and when it hits 0xOCR0, it will invert it's output at OC0
+    OCR2 = 71; 
+    /*OCR0 is our Compare Match, e.g. our timer will cycle 0x00 -> 0xFF, 
+    and when it hits 0xOCR0, it will invert it's output at OC0 */
     // Interrupt on compare
     //TIMSK |= 1<<OCIE0; 
 
@@ -156,4 +158,5 @@ void task_run(void)
 void task_trigger_isr(void)
 {
     ++_task_trigger_count;
+    PORTD ^= _BV(PD4);
 }

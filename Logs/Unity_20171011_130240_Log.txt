@@ -1,0 +1,65 @@
+Unity test run 1 of 1
+TEST(Encoder, DefaultCount) PASS
+TEST(Encoder, SetCount) PASS
+TEST(Encoder, QuadratureIncrement) PASS
+TEST(Encoder, QuadratureDecrement) PASS
+TEST(Encoder, PopCount) PASS
+TEST(CircBuffer, EmptyAfterInit) PASS
+TEST(CircBuffer, DequeueNullIfEmpty) PASS
+TEST(CircBuffer, QueueDequeueOneCharacter) PASS
+TEST(CircBuffer, QueueDequeueMultipleCharacters) PASS
+TEST(CircBuffer, QueueToCapacity) PASS
+TEST(CircBuffer, QueueToOverflow) PASS
+TEST(CmdLineBuffer, EmptyAfterInit) PASS
+TEST(CmdLineBuffer, CharLF) PASS
+TEST(CmdLineBuffer, StringLF) PASS
+TEST(CmdLineBuffer, StringCRLF) PASS
+TEST(CmdLineBuffer, StringBackspace) PASS
+TEST(CmdLineBuffer, EmptyLineLF) PASS
+TEST(CmdLineBuffer, EmptyBackspace) PASS
+TEST(CmdLineBuffer, Unterminated) PASS
+TEST(CmdLineBuffer, CharOverflow) PASS
+TEST(CmdLineBuffer, StringOverflow) PASS
+TEST(IOSpy, RedirectInString) PASS
+TEST(IOSpy, SkipInputChar) PASS
+TEST(IOSpy, AddInputChar) PASS
+TEST(IOSpy, RedirectOut) PASS
+TEST(IOSpy, RedirectOutTwice) PASS
+TEST(IOSpy, RedirectOutTwiceAgain) PASS
+TEST(IOSpy, RedirectInOut) PASS
+TEST(StdioRedirect, RedirectInString) PASS
+TEST(StdioRedirect, SkipInputChar) PASS
+TEST(StdioRedirect, AddInputChar) PASS
+TEST(StdioRedirect, RedirectOut) PASS
+TEST(StdioRedirect, RedirectInOut) PASS
+TEST(CmdParse, ParseNull) PASS
+TEST(CmdParse, ParseEmpty)test/src/test_cmd_parse.c:43::FAIL: Expected TRUE Was FALSE
+TEST(CmdParse, ParseUnknown) PASS
+TEST(CmdProcess, BufferEmptyAfterParse) PASS
+TEST(CmdProcess, InputBufferOverflow) PASS
+TEST(CmdProcess, SilentIfIncomplete) PASS
+TEST(CmdEnc, GetCount)test/src/test_cmd_enc.c:38::FAIL: Expected 'Encoder count is 24\n' Was 'Command: enc | SpaceFound: 20 | Arg: \n'
+TEST(CmdEnc, ResetCount)test/src/test_cmd_enc.c:57::FAIL: Expected 'Encoder count reset to 0\n' Was 'Command: enc reset | SpaceFound: 3 | Arg: reset\n'
+TEST(CmdEnc, InvalidArgument)test/src/test_cmd_enc.c:75::FAIL: Expected 'enc: invalid argument "derp", syntax is: enc [reset]\n' Was 'Command: enc derp | SpaceFound: 3 | Arg: derp\n'
+TEST(Task, InitNullCallback) PASS
+TEST(Task, InitDisabled) PASS
+TEST(Task, Enable) PASS
+TEST(Task, Disable) PASS
+TEST(Task, SetGetCallback) PASS
+TEST(Task, RunCallback) PASS
+TEST(Task, TriggerIncr) PASS
+TEST(Task, RunClearsTrigger) PASS
+TEST(Task, RunNull) PASS
+TEST(Task, DisableAfterTimeout) PASS
+TEST(SinTable, TaskEnabled) PASS
+TEST(SinTable, TaskDisabled) PASS
+TEST(SinTable, Header) PASS
+TEST(SinTable, DataFormat) PASS
+TEST(SinTable, Example)test/src/test_sin_table.c:128::FAIL: Expected 0.425779 Was 0.425704
+TEST(Startup, Test1) PASS
+TEST(Startup, Test2) PASS
+
+-----------------------
+59 Tests 5 Failures 0 Ignored 
+FAIL
+Completed on 20171011_130240
