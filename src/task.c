@@ -67,13 +67,14 @@ void task_enable(void)
     _task_enable_trigger_isr();     // enable output compare interrupt
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
     TCCR2 |= (1<<CS22)|(0<<CS21)|(1<<CS20);  //from table 42 in doc2503, 1024 Prescalling
+
 }
 
 void task_disable(void)
 {
     _task_disable_trigger_isr();    // disable output compare interrupt
     /*TCCR2 &= ???;*/               // TODO: stop timer (disconnect clock source)
-    TCCR2 &= (0<<CS22)|(0<<CS21)|(0<<CS20);  //from table 42 in doc2503, disconnect
+    TCCR2 &= ~(1<<CS22)|~(1<<CS21)|~(1<<CS20);  //from table 42 in doc2503, disconnect
 
     _task_trigger_count = 0;
 }
@@ -92,7 +93,7 @@ void _task_enable_trigger_isr(void)
 void _task_disable_trigger_isr(void)
 {
     /*TIMSK &= ???;*/       // TODO: disable output compare interrupt
-    TIMSK &= (0<<OCIE2);
+    TIMSK &= ~(1<<OCIE2);
 }
 
 bool _task_is_trigger_isr_enabled(void)
