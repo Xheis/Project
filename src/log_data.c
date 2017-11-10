@@ -53,15 +53,18 @@ void log_cmd(int argc, const char *argv[])
 
 void log_task(void)
 {
-    switch (_device)
+    while(_n_samples)
     {
-    case LOG_ENC:
-        printf_P(PSTR("%.2f,%" PRId32 "\n"), _time, encoder_get_count());
-        break;
+        switch (_device)
+        {
+        case LOG_ENC:
+            printf_P(PSTR("%.2f,%" PRId32 "\n"), _time, encoder_get_count());
+            break;
+        }
+
+        _time += 0.01f;
+        --_n_samples;
+
+        //if (_n_samples == 0) //task_disable();
     }
-
-    _time += 0.01f;
-    --_n_samples;
-
-    if (_n_samples == 0) task_disable();
 }

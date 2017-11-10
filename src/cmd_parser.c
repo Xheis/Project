@@ -228,7 +228,7 @@ void _cmd_log(char* arg)
     argv[2] = strtok (arg," ");
 
     log_cmd(argc,argv);
-    printf_P(PSTR("DONE\n"));
+    printf_P(PSTR("DONE argc = %c, arg[0]=%s, arg[1]=%s, arg[2]=%s\n"),argc,argv[0],argv[1],argv[2]);
 }
 
 void _cmd_sin(char* arg)
