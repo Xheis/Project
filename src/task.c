@@ -49,7 +49,7 @@ void task_init(void)
         OCRn = 71.0048
      */
     // Set TOP value for 100Hz operation (14.7456MHz XTAL)
-    OCR2 = 71; 
+    OCR2 = 0xFF;//71; 
     /*OCR0 is our Compare Match, e.g. our timer will cycle 0x00 -> 0xFF, 
     and when it hits 0xOCR0, it will invert it's output at OC0 */
     // Interrupt on compare
@@ -74,10 +74,10 @@ void task_enable(void)
     _task_trigger_count = 0;
 
     TCNT2 = 0;                      // reset counter
-    _task_enable_trigger_isr();     // enable output compare interrupt
+    
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
     TCCR2 |= _BV(CS22)|_BV(CS20);//((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
-
+_task_enable_trigger_isr();     // enable output compare interrupt
     printf_P(PSTR("End task_enable\n"));
 }
 
