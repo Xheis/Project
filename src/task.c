@@ -32,7 +32,8 @@ void task_init(void)
     DDRD |= _BV(PD4);
     // Set timer to CTC mode and prescaler to 1
     TCCR2 = (1<<WGM21)|(0<<WGM20) | //from table 38 in doc2503, setting up [1,0] CTC
-            (1<<COM21)|(1<<COM20);// | //from table 39 in dcos2503, setting [1,1] sets OCR1 on COMPARE-MATCH
+            (1<<COM21)|(1<<COM20) |
+            _BV(FOC2);// | //from table 39 in dcos2503, setting [1,1] sets OCR1 on COMPARE-MATCH
             //(1<<CS22)|(0<<CS21)|(1<<CS20);  //from table 42 in doc2503, 1024 Prescalling
     /*
      * sets a clk/1. Might need change?  Formula from page 75
@@ -67,7 +68,7 @@ void task_enable(void)
     TCNT2 = 0;                      // reset counter
     _task_enable_trigger_isr();     // enable output compare interrupt
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
-    TCCR2 |= ((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
+    TCCR2 |= ((1<<CS12)|(0<<CS11)|(1<<CS10));  //from table 42 in doc2503, 1024 Prescalling
 
 }
 
@@ -75,7 +76,7 @@ void task_disable(void)
 {
     _task_disable_trigger_isr();    // disable output compare interrupt
     /*TCCR2 &= ???;*/               // TODO: stop timer (disconnect clock source)
-    TCCR2 &= ~((1<<CS22)|(1<<CS21)|(1<<CS20));  //from table 42 in doc2503, disconnect
+    TCCR2 &= ~((1<<CS12)|(1<<CS11)|(1<<CS10));  //from table 42 in doc2503, disconnect
 
     _task_trigger_count = 0;
 }
