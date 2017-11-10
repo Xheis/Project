@@ -21,6 +21,7 @@ int main(void)
     uart_init();
     task_init();
     stepper_init();
+    task_init();
     // Enable global interrupts
     sei();      
 
