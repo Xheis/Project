@@ -17,12 +17,14 @@ CLB_CREATE_STATIC(clb, 80);
 int main(void)
 {
 
+    uart_init();
     // Send initial string
+    printf_P(PSTR("\nWarming Up...\n"));
+    _delay_ms(2000);
     printf_P(PSTR("\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"));
 
     // Initialise modules
     encoder_init();
-    uart_init();
     task_init();
     //stepper_init();
     // Enable global interrupts
