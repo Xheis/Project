@@ -20,8 +20,7 @@ int main(void)
     encoder_init();
     uart_init();
     task_init();
-    stepper_init();
-    task_init();
+    //stepper_init();
     // Enable global interrupts
     sei();      
 
