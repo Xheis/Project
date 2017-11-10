@@ -24,7 +24,7 @@ uint8_t task_triggered(void)
 
 void task_init(void)
 {
-    printf_P(PSTR("Start task_int"));
+    printf_P(PSTR("Start task_int\n"));
         
     // TODO: Setup Timer2 to generate compare match interrupts at 100Hz
 
@@ -64,13 +64,13 @@ void task_init(void)
     task_disable();
     _task_callback = NULL;
 
-    printf_P(PSTR("End task_int"));
+    printf_P(PSTR("End task_int\n"));
 }
 
 void task_enable(void)
 {
 
-    printf_P(PSTR("Start task_enable"));
+    printf_P(PSTR("Start task_enable\n"));
     _task_trigger_count = 0;
 
     TCNT2 = 0;                      // reset counter
@@ -78,18 +78,18 @@ void task_enable(void)
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
     TCCR2 |= ((1<<CS12)|(0<<CS11)|(1<<CS10));  //from table 42 in doc2503, 1024 Prescalling
 
-    printf_P(PSTR("End task_enable"));
+    printf_P(PSTR("End task_enable\n"));
 }
 
 void task_disable(void)
 {
-    printf_P(PSTR("Start task_disable"));
+    printf_P(PSTR("Start task_disable\n"));
     _task_disable_trigger_isr();    // disable output compare interrupt
     /*TCCR2 &= ???;*/               // TODO: stop timer (disconnect clock source)
     TCCR2 &= ~((1<<CS12)|(1<<CS11)|(1<<CS10));  //from table 42 in doc2503, disconnect
 
     _task_trigger_count = 0;
-    printf_P(PSTR("End task_disable"));
+    printf_P(PSTR("End task_disable\n"));
 }
 
 uint8_t _task_get_ticks_per_trigger(void)
@@ -156,7 +156,7 @@ uint16_t task_get_ticks(void)
 
 void task_run(void)
 {
-    printf_P(PSTR("Start task_run"));
+    printf_P(PSTR("Start task_run\n"));
     if (_task_callback)
     {
         _task_trigger_count = 0;
@@ -176,9 +176,9 @@ void task_run(void)
     else
     {
         task_disable();
-        printf_P(PSTR("*** Task called with NULL callback! ***\n"));
+        printf_P(PSTR("*** Task called with NULL callback! ***\n\n"));
     }
-    printf_P(PSTR("End task_run"));
+    printf_P(PSTR("End task_run\n"));
 }
 
 void task_trigger_isr(void)
