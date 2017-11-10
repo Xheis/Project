@@ -79,7 +79,7 @@ void task_enable(void)
     TCCR2 |= _BV(CS22)|_BV(CS20);//((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
     
     printf_P(PSTR("2\n"));
-    _task_enable_trigger_isr();     // enable output compare interrupt
+    //_task_enable_trigger_isr();     // enable output compare interrupt
     
     printf_P(PSTR("3\n"));
     printf_P(PSTR("4\n"));
