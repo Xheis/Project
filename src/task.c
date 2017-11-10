@@ -194,5 +194,6 @@ void task_run(void)
 void task_trigger_isr(void)
 {
     ++_task_trigger_count;
+    printf_P(PSTR("Count:%d\n"),_task_trigger_count);
     PORTD ^= _BV(PD4);
 }
