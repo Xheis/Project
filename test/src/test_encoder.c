@@ -27,19 +27,19 @@ TEST(Encoder, SetCount)
     TEST_ASSERT_EQUAL_INT32(42, encoder_get_count());
 }
 
-static void raise_A(void) { mock_portc |=   1 << 0 ; }  // Raise PD2/INT0/chA
-static void raise_B(void) { mock_portc |=   1 << 1 ; }  // Raise PD3/INT1/chB
-static void lower_A(void) { mock_portc &= ~(1 << 0); }  // Lower PD2/INT0/chA
-static void lower_B(void) { mock_portc &= ~(1 << 1); }  // Lower PD3/INT1/chB
+// static void raise_A(void) { mock_portc |=   1 << 0 ; }  // Raise PD2/INT0/chA
+// static void raise_B(void) { mock_portc |=   1 << 1 ; }  // Raise PD3/INT1/chB
+// static void lower_A(void) { mock_portc &= ~(1 << 0); }  // Lower PD2/INT0/chA
+// static void lower_B(void) { mock_portc &= ~(1 << 1); }  // Lower PD3/INT1/chB
 
-// static void raise_A(void) { mock_portd |=   1 << 2 ; }  // Raise PD2/INT0/chA
-// static void raise_B(void) { mock_portd |=   1 << 3 ; }  // Raise PD3/INT1/chB
-// static void lower_A(void) { mock_portd &= ~(1 << 2); }  // Lower PD2/INT0/chA
-// static void lower_B(void) { mock_portd &= ~(1 << 3); }  // Lower PD3/INT1/chB
+static void raise_A(void) { mock_portd |=   1 << 2 ; }  // Raise PD2/INT0/chA
+static void raise_B(void) { mock_portd |=   1 << 3 ; }  // Raise PD3/INT1/chB
+static void lower_A(void) { mock_portd &= ~(1 << 2); }  // Lower PD2/INT0/chA
+static void lower_B(void) { mock_portd &= ~(1 << 3); }  // Lower PD3/INT1/chB
 
 TEST(Encoder, QuadratureIncrement)
 {
-    PINC = 0x00;
+    PIND = 0x00;
     encoder_set_count(0);
 
     // Transition from state 1 to 2
@@ -70,7 +70,7 @@ TEST(Encoder, QuadratureIncrement)
 
 TEST(Encoder, QuadratureDecrement)
 {
-    mock_portc = 0x00;
+    mock_portd = 0x00;
     encoder_set_count(0);
 
     // Transition from state 1 to 4

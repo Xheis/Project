@@ -92,6 +92,8 @@ SRC_TEST = \
 	test/src/test_circ_buffer.c \
 	test/src/test_cmd_line_buffer.c \
 	test/src/test_iospy.c \
+	test/src/stdio_redirect.c \
+	test/src/test_stdio_redirect.c \
 	test/src/test_cmd_parse.c \
 	test/src/test_cmd_process.c \
 	test/src/test_cmd_enc.c \

@@ -69,36 +69,36 @@ const char ttable[7][4] = {
  *
  * Returns 0 on no event, otherwise 0x80 or 0x40 depending on the direction.
  */
-char rotary_process(uint8_t A_in, uint8_t B_in);
-volatile char state = 0;
-char rotary_process(uint8_t A_in, uint8_t B_in)
-{
-    char pinstate = (A_in << 1) | B_in; //Create a hex 0xAB, to cross reference with our state LUT
-    state = ttable[state & 0xf][pinstate];
-    return (state & 0xc0);//0xc0);
-}
+// char rotary_process(uint8_t A_in, uint8_t B_in);
+// volatile char state = 0;
+// char rotary_process(uint8_t A_in, uint8_t B_in)
+// {
+//     char pinstate = (A_in << 1) | B_in; //Create a hex 0xAB, to cross reference with our state LUT
+//     state = ttable[state & 0xf][pinstate];
+//     return (state & 0xc0);//0xc0);
+// }
 
-void checkEnc(uint8_t A_in, uint8_t B_in);
-void checkEnc(uint8_t A_in, uint8_t B_in) 
-{
-    char result = rotary_process(A_in,B_in);
-    if (result)
-    {
-        if (result == 0x40)
-        {
-            printf_P(PSTR("Clockwise\n"));
-            _count--;   
-        }
-        else
-        {
-            printf_P(PSTR("Anti-clockwise\n"));
-            _count++;   
-        }
-    }
-    else
-    {
-    }
-}
+// void checkEnc(uint8_t A_in, uint8_t B_in);
+// void checkEnc(uint8_t A_in, uint8_t B_in) 
+// {
+//     char result = rotary_process(A_in,B_in);
+//     if (result)
+//     {
+//         if (result == 0x40)
+//         {
+//             printf_P(PSTR("Clockwise\n"));
+//             _count--;   
+//         }
+//         else
+//         {
+//             printf_P(PSTR("Anti-clockwise\n"));
+//             _count++;   
+//         }
+//     }
+//     else
+//     {
+//     }
+// }
 
 
 void encoder_init(void)
