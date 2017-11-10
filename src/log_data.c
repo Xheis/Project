@@ -53,8 +53,6 @@ void log_cmd(int argc, const char *argv[])
 
 void log_task(void)
 {
-    while(_n_samples)
-    {
         switch (_device)
         {
         case LOG_ENC:
@@ -65,6 +63,5 @@ void log_task(void)
         _time += 0.01f;
         --_n_samples;
 
-        //if (_n_samples == 0) //task_disable();
-    }
+        if (_n_samples == 0) task_disable();
 }
