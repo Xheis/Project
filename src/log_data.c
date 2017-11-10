@@ -31,21 +31,22 @@ void log_cmd(int argc, const char *argv[])
         printf_P(PSTR("%s: expecting positive number of samples\n"), argv[0]);
         return;
     }
-    _n_samples = n;
+    _n_samples = 5;//n;
     _time = 0.0f;
 
+    _device = LOG_ENC;
     
-    if (!strcmp_P(argv[1], PSTR("enc")))
-    {
-        _device = LOG_ENC;
-        encoder_init();
-        printf_P(PSTR("Time [sec],Encoder [-]\n"));
-    }
-    else
-    {
-        printf_P(PSTR("%s: unknown device \"%s\", syntax is: %s [pot|enc] <samples>\n"), argv[0], argv[1], argv[0]);
-        return;
-    }
+    // if (!strcmp_P(argv[1], PSTR("enc")))
+    // {
+    //     _device = LOG_ENC;
+    //     encoder_init();
+    //     printf_P(PSTR("Time [sec],Encoder [-]\n"));
+    // }
+    // else
+    // {
+    //     printf_P(PSTR("%s: unknown device \"%s\", syntax is: %s [pot|enc] <samples>\n"), argv[0], argv[1], argv[0]);
+    //     return;
+    // }
 
     task_set(log_task);
     task_enable();
@@ -53,6 +54,7 @@ void log_cmd(int argc, const char *argv[])
 
 void log_task(void)
 {
+        printf_P(PSTR("Start log_task\n"));
         switch (_device)
         {
         case LOG_ENC:
@@ -64,4 +66,6 @@ void log_task(void)
         --_n_samples;
 
         if (_n_samples == 0) task_disable();
+
+        printf_P(PSTR("Start log_task\n"));
 }
