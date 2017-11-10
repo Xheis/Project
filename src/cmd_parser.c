@@ -226,7 +226,7 @@ void _cmd_log(char* arg)
     char* argv[3];
     argv[0] = "log";
     argv[1] = strtok (arg," ");
-    argv[2] = strtok (arg," ");
+    argv[2] = strtok (NULL," ");
     printf_P(PSTR("TEST argc = %c, arg[0]=%s, arg[1]=%s, arg[2]=%s\n"),argc,argv[0],argv[1],argv[2]);
 
     log_cmd(argc,argv);
