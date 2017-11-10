@@ -7,6 +7,8 @@
 #include <inttypes.h>
 #include "task.h"
 
+#include <avr/io.h>
+
 static TASK_CALLBACK_T _task_callback;         // Task callback function pointer
 static volatile uint8_t _task_trigger_count;
 
@@ -22,6 +24,8 @@ uint8_t task_triggered(void)
 
 void task_init(void)
 {
+    printf_P(PSTR("Start task_int"));
+        
     // TODO: Setup Timer2 to generate compare match interrupts at 100Hz
 
     /*TCCR0 |= (1<<WGM00)|(1<<COM01)|(1<<WGM01)|(1<<CS00); // initialize timer0 in PWM mode
@@ -59,10 +63,14 @@ void task_init(void)
 
     task_disable();
     _task_callback = NULL;
+
+    printf_P(PSTR("End task_int"));
 }
 
 void task_enable(void)
 {
+
+    printf_P(PSTR("Start task_enable"));
     _task_trigger_count = 0;
 
     TCNT2 = 0;                      // reset counter
@@ -70,15 +78,18 @@ void task_enable(void)
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
     TCCR2 |= ((1<<CS12)|(0<<CS11)|(1<<CS10));  //from table 42 in doc2503, 1024 Prescalling
 
+    printf_P(PSTR("End task_enable"));
 }
 
 void task_disable(void)
 {
+    printf_P(PSTR("Start task_disable"));
     _task_disable_trigger_isr();    // disable output compare interrupt
     /*TCCR2 &= ???;*/               // TODO: stop timer (disconnect clock source)
     TCCR2 &= ~((1<<CS12)|(1<<CS11)|(1<<CS10));  //from table 42 in doc2503, disconnect
 
     _task_trigger_count = 0;
+    printf_P(PSTR("End task_disable"));
 }
 
 uint8_t _task_get_ticks_per_trigger(void)
@@ -88,15 +99,25 @@ uint8_t _task_get_ticks_per_trigger(void)
 
 void _task_enable_trigger_isr(void)
 {
-    /*TIMSK |= ???;*/       // TODO: enable output compare interrupt
-    TIMSK |= _BV(OCIE2);//(1<<OCIE2);
+    TIMSK |= _BV(OCIE2);       // Enable output compare interrupt
 }
 
 void _task_disable_trigger_isr(void)
 {
-    /*TIMSK &= ???;*/       // TODO: disable output compare interrupt
-    TIMSK &= ~(_BV(OCIE2));
+    TIMSK &= ~_BV(OCIE2);       // Disable output compare interrupt
 }
+
+// void _task_enable_trigger_isr(void)
+// {
+//     /*TIMSK |= ???;*/       // TODO: enable output compare interrupt
+//     TIMSK |= _BV(OCIE2);//(1<<OCIE2);
+// }
+
+// void _task_disable_trigger_isr(void)
+// {
+//     /*TIMSK &= ???;*/       // TODO: disable output compare interrupt
+//     TIMSK &= ~(_BV(OCIE2));
+// }
 
 bool _task_is_trigger_isr_enabled(void)
 {
@@ -135,6 +156,7 @@ uint16_t task_get_ticks(void)
 
 void task_run(void)
 {
+    printf_P(PSTR("Start task_run"));
     if (_task_callback)
     {
         _task_trigger_count = 0;
@@ -156,6 +178,7 @@ void task_run(void)
         task_disable();
         printf_P(PSTR("*** Task called with NULL callback! ***\n"));
     }
+    printf_P(PSTR("End task_run"));
 }
 
 void task_trigger_isr(void)
