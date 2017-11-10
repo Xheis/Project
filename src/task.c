@@ -76,7 +76,7 @@ void task_enable(void)
     TCNT2 = 0;                      // reset counter
     _task_enable_trigger_isr();     // enable output compare interrupt
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
-    //TCCR2 |= ((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
+    TCCR2 |= _BV(CS22)|_BV(CS20);//((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
 
     printf_P(PSTR("End task_enable\n"));
 }
@@ -86,7 +86,7 @@ void task_disable(void)
     printf_P(PSTR("Start task_disable\n"));
     _task_disable_trigger_isr();    // disable output compare interrupt
     /*TCCR2 &= ???;*/               // TODO: stop timer (disconnect clock source)
-    TCCR2 &= ~((1<<CS22)|(1<<CS21)|(1<<CS20));  //from table 42 in doc2503, disconnect
+    TCCR2 &= ~(_BV(CS22)|_BV(CS20));  //from table 42 in doc2503, disconnect
 
     _task_trigger_count = 0;
     printf_P(PSTR("End task_disable\n"));
