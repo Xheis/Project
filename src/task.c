@@ -36,8 +36,8 @@ void task_init(void)
     DDRD |= _BV(PD4);
     // Set timer to CTC mode and prescaler to 1
     TCCR2 = (1<<WGM21)|(0<<WGM20) | //from table 38 in doc2503, setting up [1,0] CTC
-            (1<<COM21)|(1<<COM20) |
-            _BV(FOC2);// | //from table 39 in dcos2503, setting [1,1] sets OCR1 on COMPARE-MATCH
+            (1<<COM21)|(1<<COM20);// |
+            //_BV(FOC2);// | //from table 39 in dcos2503, setting [1,1] sets OCR1 on COMPARE-MATCH
             //(1<<CS22)|(0<<CS21)|(1<<CS20);  //from table 42 in doc2503, 1024 Prescalling
     /*
      * sets a clk/1. Might need change?  Formula from page 75
@@ -76,10 +76,10 @@ void task_enable(void)
     TCNT2 = 0;                      // reset counter
     
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
-    TCCR2 |= _BV(CS22)|_BV(CS20);//((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
+    TCCR2 |= _BV(CS12)|_BV(CS10);//((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
     
     printf_P(PSTR("2\n"));
-    //_task_enable_trigger_isr();     // enable output compare interrupt
+    _task_enable_trigger_isr();     // enable output compare interrupt
     
     printf_P(PSTR("3\n"));
     printf_P(PSTR("4\n"));
@@ -92,7 +92,7 @@ void task_disable(void)
     printf_P(PSTR("Start task_disable\n"));
     _task_disable_trigger_isr();    // disable output compare interrupt
     /*TCCR2 &= ???;*/               // TODO: stop timer (disconnect clock source)
-    TCCR2 &= ~(_BV(CS22)|_BV(CS20));  //from table 42 in doc2503, disconnect
+    TCCR2 &= ~(_BV(CS12)|_BV(CS10));  //from table 42 in doc2503, disconnect
 
     _task_trigger_count = 0;
     printf_P(PSTR("End task_disable\n"));
@@ -106,7 +106,7 @@ uint8_t _task_get_ticks_per_trigger(void)
 void _task_enable_trigger_isr(void)
 {
     printf_P(PSTR("Start ISR\n"));
-    TIMSK |= _BV(OCIE2);       // Enable output compare interrupt
+    //TIMSK |= _BV(OCIE2);       // Enable output compare interrupt
     printf_P(PSTR("End ISR\n"));
 }
 
