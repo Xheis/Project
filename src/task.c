@@ -29,6 +29,7 @@ void task_init(void)
     DDRB |= _BV(PB3);
     OCR0 = 0; */
 
+    DDRD |= _BV(PD4);
     // Set timer to CTC mode and prescaler to 1
     TCCR2 = (1<<WGM21)|(0<<WGM20) | //from table 38 in doc2503, setting up [1,0] CTC
             (1<<COM21)|(1<<COM20);// | //from table 39 in dcos2503, setting [1,1] sets OCR1 on COMPARE-MATCH
@@ -66,7 +67,7 @@ void task_enable(void)
     TCNT2 = 0;                      // reset counter
     _task_enable_trigger_isr();     // enable output compare interrupt
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
-    TCCR2 |= (1<<CS22)|(0<<CS21)|(1<<CS20);  //from table 42 in doc2503, 1024 Prescalling
+    TCCR2 |= ((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
 
 }
 
@@ -74,7 +75,7 @@ void task_disable(void)
 {
     _task_disable_trigger_isr();    // disable output compare interrupt
     /*TCCR2 &= ???;*/               // TODO: stop timer (disconnect clock source)
-    TCCR2 &= ~(1<<CS22)|~(1<<CS21)|~(1<<CS20);  //from table 42 in doc2503, disconnect
+    TCCR2 &= ~((1<<CS22)|(1<<CS21)|(1<<CS20));  //from table 42 in doc2503, disconnect
 
     _task_trigger_count = 0;
 }
@@ -87,13 +88,13 @@ uint8_t _task_get_ticks_per_trigger(void)
 void _task_enable_trigger_isr(void)
 {
     /*TIMSK |= ???;*/       // TODO: enable output compare interrupt
-    TIMSK |= (1<<OCIE2);
+    TIMSK |= _BV(OCIE2);//(1<<OCIE2);
 }
 
 void _task_disable_trigger_isr(void)
 {
     /*TIMSK &= ???;*/       // TODO: disable output compare interrupt
-    TIMSK &= ~(1<<OCIE2);
+    TIMSK &= ~(_BV(OCIE2));
 }
 
 bool _task_is_trigger_isr_enabled(void)
