@@ -16,6 +16,10 @@ CLB_CREATE_STATIC(clb, 80);
 
 int main(void)
 {
+
+    // Send initial string
+    printf_P(PSTR("\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"));
+
     // Initialise modules
     encoder_init();
     uart_init();
@@ -25,11 +29,11 @@ int main(void)
     sei();      
 
     // Wait a second at startup
-    _delay_ms(5000);
+    _delay_ms(2000);
 
 
     // Send initial string
-    printf_P(PSTR("\nC3206246 BUILD DATE: "__DATE__" "__TIME__"\n\n"));
+    printf_P(PSTR("\nReady!\n\n"));
 
     for(;/*ever*/;)
     {

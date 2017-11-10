@@ -72,12 +72,16 @@ void task_enable(void)
 
     printf_P(PSTR("Start task_enable\n"));
     _task_trigger_count = 0;
-
+    printf_P(PSTR("1"));
     TCNT2 = 0;                      // reset counter
     
     /*TCCR2 |= ???;*/               // TODO: start timer (connect clock source)
     TCCR2 |= _BV(CS22)|_BV(CS20);//((1<<CS22)|(0<<CS21)|(1<<CS20));  //from table 42 in doc2503, 1024 Prescalling
-_task_enable_trigger_isr();     // enable output compare interrupt
+    
+    printf_P(PSTR("2"));
+    _task_enable_trigger_isr();     // enable output compare interrupt
+    
+    printf_P(PSTR("3"));
     printf_P(PSTR("End task_enable\n"));
 }
 
