@@ -219,7 +219,7 @@ void _cmd_move_set_steps(char* steps)
 
 void _cmd_log(char* arg)
 {
-    printf_P(PSTR("OKAY\n"));
+    printf_P(PSTR("OKAY, %s \n"),arg);
     log_cmd(arg);
     printf_P(PSTR("DONE\n"));
 }
