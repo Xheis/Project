@@ -12,7 +12,7 @@ static void RunAllTests(void)
     RUN_TEST_GROUP(StdioRedirect);
     RUN_TEST_GROUP(CmdParse);
     RUN_TEST_GROUP(CmdProcess);
-    RUN_TEST_GROUP(CmdEnc);
+    //RUN_TEST_GROUP(CmdEnc);
 
     /* Lab 4 */
     //RUN_TEST_GROUP(CmdXY);
