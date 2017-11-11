@@ -12,7 +12,7 @@ b = 0.01;           % Damping of cart (N.s/m) //misc, tuned
 c = 0.017;           % Damping of pendulum (N.m.s/rad) //calc'd from sys id
 
 % Other parameters
-startAngle = 130;
+startAngle = 5;
 g = 9.82;           % Acceleration due to gravity (m/s/s)
 %alpha = 1*pi/180;   % Ground slope (rad = deg*pi/180)
 theta0 = startAngle*pi/180;  % Initial angle (rad = deg*pi/180)
@@ -68,14 +68,14 @@ Controller_Gain = K(3);
 
 % Run simulation
 tsim = 60;
-sim('Stepper_Model_2017_10_31');
+sim('Stepper_Model_2017_10_31'); %_mark');
 
 
 % Plot results
 figure(1);clf
 subplot(2,2,1)
 %plot(t,theta,Plant_Real(:,1),Plant_Real(:,2)*pi/90,'r')
-%plot(t,theta,t,ri,'r')
+plot(t,theta,t,ri,'r')
 grid on
 xlim([0 tsim])
 xlabel('Time (sec)')
@@ -105,17 +105,18 @@ ylabel('v REF (m/s)')
 legend('Actual','Demanded','Location','Best')
 
 figure(2);clf
+set(gcf,'color','w')
 %import my data
-Plant_Real = csvread('Real_Plant_Pend_Swing_Test.csv');
-plot(t,theta,Plant_Real(:,1),Plant_Real(:,2)*pi/90,'r');
-grid on
-title('Real vs Plant')
-xlabel('Time (sec)')
-ylabel('Angle (Degrees)')
-legend('Simulation','Actual Plant')
-
-% plot(t,u)
+% Plant_Real = csvread('Real_Plant_Pend_Swing_Test.csv');
+% plot(t,theta,Plant_Real(:,1),Plant_Real(:,2)*pi/90,'r');
 % grid on
-% title('Control force (Velocity)')
+% title('Real vs Plant')
 % xlabel('Time (sec)')
-% ylabel('Velocity (m/s)')
+% ylabel('Angle (Degrees)')
+% legend('Simulation, c = 0.017 N.m.s/rad','Actual Plant')
+
+plot(t,u)
+grid on
+title('Control force (Velocity)')
+xlabel('Time (sec)')
+ylabel('Velocity (m/s)')
