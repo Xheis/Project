@@ -33,6 +33,3 @@ TEST_GROUP_RUNNER(Stepper)
 {
     RUN_TEST_CASE(Stepper, setDir);
 }
-
-
-

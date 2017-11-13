@@ -1,9 +1,7 @@
 Unity test run 1 of 1
 TEST(Encoder, DefaultCount) PASS
 TEST(Encoder, SetCount) PASS
-TEST(Encoder, QuadratureIncrement)Mock: 0, PIND 0
-Mock: 4, PIND 4
- PASS
+TEST(Encoder, QuadratureIncrement) PASS
 TEST(Encoder, QuadratureDecrement) PASS
 TEST(Encoder, PopCount) PASS
 TEST(Startup, Test1) PASS
