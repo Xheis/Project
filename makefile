@@ -102,6 +102,7 @@ SRC_TEST = \
 	test/src/test_cmd_controller.c \
 	test/src/test_task.c \
 	test/src/test_sin_table.c \
+	test/src/test_Stepper.c \
 	test/src/test_Startup.c
 
 SRC_AVR = \

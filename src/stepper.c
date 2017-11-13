@@ -116,9 +116,9 @@ void set_dir(char* dir)
 	else
 	{
 		//ERROR
-		printf_P(PSTR("ERROR\n"));
+		//printf_P(PSTR("ERROR!\n"));
 	}
-	        printf_P(PSTR("Dir set to '%s' \n"), dir);
+	        //printf_P(PSTR("Dir set to '%s' \n"), dir);
 }
 void set_velocity(float velocity)
 {

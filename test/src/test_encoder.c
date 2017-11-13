@@ -40,6 +40,8 @@ static void lower_B(void) { mock_portd &= ~(1 << 3); }  // Lower PD3/INT1/chB
 TEST(Encoder, QuadratureIncrement)
 {
     PIND = 0x00;
+
+    printf("Mock: %x, PIND %x\n",mock_portd,PIND);
     encoder_set_count(0);
 
     // Transition from state 1 to 2
@@ -57,6 +59,8 @@ TEST(Encoder, QuadratureIncrement)
     encoder_edge_B_isr();
     TEST_ASSERT_EQUAL_INT32_MESSAGE(3, encoder_get_count(), "Expected increment for state 3 to 4 transition");
 
+
+    printf("Mock: %x, PIND %x\n",mock_portd,PIND);
     // Transition from state 4 to 1
     lower_A();
     encoder_edge_A_isr();

@@ -1,0 +1,19 @@
+Unity test run 1 of 1
+TEST(Encoder, DefaultCount) PASS
+TEST(Encoder, SetCount) PASS
+TEST(Encoder, QuadratureIncrement)Mock: 0, PIND 0
+Mock: 4, PIND 4
+ PASS
+TEST(Encoder, QuadratureDecrement) PASS
+TEST(Encoder, PopCount) PASS
+TEST(Startup, Test1) PASS
+TEST(Startup, Test2) PASS
+TEST(Stepper, setDir)Dir set to 'forwards' 
+Start: 0
+End: 0
+ PASS
+
+-----------------------
+8 Tests 0 Failures 0 Ignored 
+OK
+Completed on 20171311_234335

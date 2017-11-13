@@ -1,0 +1,224 @@
+Unity test run 1 of 1
+TEST(Encoder, DefaultCount) PASS
+TEST(Encoder, SetCount) PASS
+TEST(Encoder, QuadratureIncrement) PASS
+TEST(Encoder, QuadratureDecrement) PASS
+TEST(Encoder, PopCount) PASS
+TEST(CircBuffer, EmptyAfterInit) PASS
+TEST(CircBuffer, DequeueNullIfEmpty) PASS
+TEST(CircBuffer, QueueDequeueOneCharacter) PASS
+TEST(CircBuffer, QueueDequeueMultipleCharacters) PASS
+TEST(CircBuffer, QueueToCapacity) PASS
+TEST(CircBuffer, QueueToOverflow) PASS
+TEST(CmdLineBuffer, EmptyAfterInit) PASS
+TEST(CmdLineBuffer, CharLF) PASS
+TEST(CmdLineBuffer, StringLF) PASS
+TEST(CmdLineBuffer, StringCRLF) PASS
+TEST(CmdLineBuffer, StringBackspace) PASS
+TEST(CmdLineBuffer, EmptyLineLF) PASS
+TEST(CmdLineBuffer, EmptyBackspace) PASS
+TEST(CmdLineBuffer, Unterminated) PASS
+TEST(CmdLineBuffer, CharOverflow) PASS
+TEST(CmdLineBuffer, StringOverflow) PASS
+TEST(IOSpy, RedirectInString) PASS
+TEST(IOSpy, SkipInputChar) PASS
+TEST(IOSpy, AddInputChar) PASS
+TEST(IOSpy, RedirectOut) PASS
+TEST(IOSpy, RedirectOutTwice) PASS
+TEST(IOSpy, RedirectOutTwiceAgain) PASS
+TEST(IOSpy, RedirectInOut) PASS
+TEST(StdioRedirect, RedirectInString) PASS
+TEST(StdioRedirect, SkipInputChar) PASS
+TEST(StdioRedirect, AddInputChar) PASS
+TEST(StdioRedirect, RedirectOut) PASS
+TEST(StdioRedirect, RedirectInOut) PASS
+TEST(CmdParse, ParseNull) PASS
+TEST(CmdParse, ParseEmpty)test/src/test_cmd_parse.c:43::FAIL: Expected TRUE Was FALSE
+TEST(CmdParse, ParseUnknown) PASS
+TEST(CmdProcess, BufferEmptyAfterParse) PASS
+TEST(CmdProcess, InputBufferOverflow) PASS
+TEST(CmdProcess, SilentIfIncomplete) PASS
+TEST(Task, InitNullCallback)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+ PASS
+TEST(Task, InitDisabled)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+ PASS
+TEST(Task, Enable)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+Start task_enable
+1
+2
+Start ISR
+End ISR
+3
+4
+End task_enable
+5
+test/src/test_task.c:31::FAIL: Expected TRUE Was FALSE
+TEST(Task, Disable)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+Start task_enable
+1
+2
+Start ISR
+End ISR
+3
+4
+End task_enable
+5
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+ PASS
+TEST(Task, SetGetCallback)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+ PASS
+TEST(Task, RunCallback)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+Start task_run
+End task_run
+ PASS
+TEST(Task, TriggerIncr)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+Count:1
+Count:2
+ PASS
+TEST(Task, RunClearsTrigger)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+Count:1
+Start task_run
+End task_run
+ PASS
+TEST(Task, RunNull)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+Start task_enable
+1
+2
+Start ISR
+End ISR
+3
+4
+End task_enable
+5
+ PASS
+TEST(Task, DisableAfterTimeout)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+ PASS
+TEST(SinTable, TaskEnabled)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+test/src/test_sin_table.c:32::FAIL: Expected TRUE Was FALSEStart task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+
+TEST(SinTable, TaskDisabled)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+ PASS
+TEST(SinTable, Header)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+test/src/test_sin_table.c:63::FAIL: Expected 'Time [sec],Value\n' Was 'Time [sec],Value\nStart task_enable\n1\n2\nStart ISR\nEnd ISR\n3\n4\nEnd task_enable\n5\n'Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+
+TEST(SinTable, DataFormat)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+ PASS
+TEST(SinTable, Example)Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+test/src/test_sin_table.c:128::FAIL: Expected 0.425779 Was 0.425704Start task_int
+Start task_disable
+Start ~ISR
+End ~ISR
+End task_disable
+End task_int
+
+TEST(Startup, Test1) PASS
+TEST(Startup, Test2) PASS
+
+-----------------------
+56 Tests 5 Failures 0 Ignored 
+FAIL
+Completed on 20171311_231218
