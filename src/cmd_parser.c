@@ -55,7 +55,7 @@ float getTheta(void) { return Theta; }
 float getRho(void) { return Rho; }
 float getB(void) { return b; }
 
-/* Command table code inspired by Mark McCurry here: http://fundamental-code.com/ on 14/10/17 */
+/* Command table code Adapted from: http://fundamental-code.com/ on 14/10/17, under MIT License use*/
 typedef struct {
     const char *nameOfFunction;
     void (*func)(char*);
