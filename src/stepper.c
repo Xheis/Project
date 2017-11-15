@@ -104,8 +104,17 @@ void test_step_params(int step_Speed, int step_distance, int step_inbetween_dela
 	// int step_inbetween_delay = 400;
     // while (1) 
     // {
-		PORTD |= (dir<<DIR_PIN[0]);
-		PORTD &= ~(dir<<DIR_PIN[1]);                 //Make PORTD6 high to rotate motor in clockwise direction
+      if (dir)
+      {
+      	PORTD |= (1<<DIR_PIN[0]);
+		PORTD &= ~(1<<DIR_PIN[1]);                 //Make PORTD6 high to rotate motor in clockwise direction
+      }
+      else
+      {
+      	PORTD &= ~(1<<DIR_PIN[0]);                //Make PORTD6 high to rotate motor in clockwise direction
+		PORTD |= (1<<DIR_PIN[1]);
+      }
+
 
 		for(x=0; x<step_distance; x++)              //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
 		{
