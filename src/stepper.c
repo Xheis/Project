@@ -90,6 +90,42 @@ void test_stepper()
 	}
 }
 
+
+
+
+void test_step_params(int step_Speed, int step_distance, int step_inbetween_delay, int dir)
+{
+	int x,y;
+  
+      DDRD |= (1<<EN_PIN[0])|(1<<EN_PIN[1])|(1<<DIR_PIN[0])|(1<<DIR_PIN[1])|(1<<STEP_PIN[0])|(1<<STEP_PIN[1]);     // Configure PORTD5, PORTD6, PORTD7 as output
+
+	// int step_Speed = 50;
+	// int step_distance = 25;
+	// int step_inbetween_delay = 400;
+    // while (1) 
+    // {
+		PORTD |= (dir<<DIR_PIN[0]);
+		PORTD &= ~(dir<<DIR_PIN[1]);                 //Make PORTD6 high to rotate motor in clockwise direction
+
+		for(x=0; x<step_distance; x++)              //Give 50 pulses to rotate stepper motor by 90 degree's in full step mode
+		{
+		 for(y=0; y<10; y++)
+		 {
+		  PORTD |=(1<<STEP_PIN[0]);
+		  PORTD |=(1<<STEP_PIN[1]);
+		  delay_us(step_inbetween_delay);
+		  PORTD &=~(1<<STEP_PIN[0]);
+		  PORTD &=~(1<<STEP_PIN[1]);
+		  delay_us(step_inbetween_delay);
+		 }
+		 //printf_P(PSTR("step clockwis\n"));
+		 delay_ms(step_Speed); //speed
+		}
+	
+	//}
+}
+
+
 void set_dir(char* dir)
 {
 

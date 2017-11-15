@@ -32,6 +32,9 @@ void _cmd_set(char*);
 void _cmd_get(char*);
 void _cmd_ctrl(void);
 
+void _cmd_test_step_params(char*);
+
+//test_step_params
 static float x;
 static float y;
 static float VRef;
@@ -76,7 +79,8 @@ commands_t commandTable[] = {{"", _cmd_empty, ""},
                              {"set", _cmd_set, "set [theta|pho] <value>"},
                              {"get", _cmd_get, "get [theta|pho]"},
                              {"ctrl", _cmd_ctrl, "ctrl - returns next step in controller"},
-                             {"testing_stepper", _cmd_test_stepper, "runs a stepper test suite"}};
+                             {"test_step_params", _cmd_test_step_params, "runs a stepper test suite"},
+                             {"testing_stepper", _cmd_test_stepper, "test_step_params(int step_Speed, int step_distance, int step_inbetween_delay, int dir)"}};
 
 void cmd_parse(const char * cmd)
 {
@@ -389,4 +393,17 @@ void _cmd_get(char* cmd)
 void _cmd_ctrl()
 {
 	printf_P(PSTR("%f\n"), ctrl_run(getY(),getTheta(),getV()));
+}
+
+void _cmd_test_step_params(char* arg) //int step_Speed, int step_distance, int step_inbetween_delay, int dir);
+{
+
+    // int argc = 3;
+     char* argv[3];
+    argv[0] = strtok (arg," ");
+    argv[1] = strtok (NULL," ");
+    argv[2] = strtok (NULL," ");
+    argv[3] = strtok (NULL," ");
+    printf_P(PSTR("TEST arg[0]=%s, arg[1]=%s, arg[2]=%s, arg[3]=%s\n"),argv[0],argv[1],argv[2],argv[3]);
+    test_step_params(argv[0], argv[1], argv[2], argv[3]);
 }
