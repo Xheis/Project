@@ -104,7 +104,7 @@ void test_step_params(int step_Speed, int step_distance, float velocity, int dir
 	// int step_inbetween_delay = 400;
     // while (1) 
     // {
-      int step_inbetween_delay = calc_velocity_pulses(step_inbetween_delay);
+      int step_inbetween_delay = calc_velocity_pulses(velocity);
       if (dir)
       {
       	PORTD |= (1<<DIR_PIN[0]);
