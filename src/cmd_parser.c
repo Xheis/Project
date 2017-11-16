@@ -405,5 +405,5 @@ void _cmd_test_step_params(char* arg) //int step_Speed, int step_distance, int s
     argv[2] = strtok (NULL," ");
     argv[3] = strtok (NULL," ");
     printf_P(PSTR("TEST arg[0]=%s, arg[1]=%s, arg[2]=%s, arg[3]=%s\n"),argv[0],argv[1],argv[2],argv[3]);
-    test_step_params(atoi(argv[0]), atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
+    test_step_params(atoi(argv[0]), atoi(argv[1]), atof(argv[2]), atoi(argv[3]));
 }

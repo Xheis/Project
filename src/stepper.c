@@ -93,7 +93,7 @@ void test_stepper()
 
 
 
-void test_step_params(int step_Speed, int step_distance, int step_inbetween_delay, int dir)
+void test_step_params(int step_Speed, int step_distance, float velocity, int dir)
 {
 	int x,y;
   
@@ -104,6 +104,7 @@ void test_step_params(int step_Speed, int step_distance, int step_inbetween_dela
 	// int step_inbetween_delay = 400;
     // while (1) 
     // {
+      int step_inbetween_delay = calc_velocity_pulses(step_inbetween_delay);
       if (dir)
       {
       	PORTD |= (1<<DIR_PIN[0]);
@@ -164,6 +165,12 @@ void set_dir(char* dir)
 		//printf_P(PSTR("ERROR!\n"));
 	}
 	        //printf_P(PSTR("Dir set to '%s' \n"), dir);
+}
+
+int calc_velocity_pulses(float velocity)
+{
+	float Pulse_Time = 4248703.506*(velocity*velocity)-301809.6864*(velocity)-6355.748711;
+	return (int)round(Pulse_Time);
 }
 void set_velocity(float velocity)
 {

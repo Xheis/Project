@@ -19,8 +19,8 @@ theta0 = startAngle*pi/180;  % Initial angle (rad = deg*pi/180)
 dV0 = 0.01;
 
 
-Velocity_Max = 0.5;
-Velocity_Min = -0.5;
+Velocity_Max = 0.035;
+Velocity_Min = -0.035;
 %% Signal Generation
 
 Velocity_Step = 0.1;

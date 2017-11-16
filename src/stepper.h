@@ -8,7 +8,8 @@ void stepper_init(void);
 void test_stepper(void);			//Configure ADC and Timer 1
 void move_set_dist(int);
 //void move_set_dist(int, int);
-void test_step_params(int step_Speed, int step_distance, int step_inbetween_delay, int dir);
+int calc_velocity_pulses(float);
+void test_step_params(int step_Speed, int step_distance, float velocity, int dir);
 void move_set_time(int);
 void set_velocity(float);
 void set_dir(char*);
