@@ -169,7 +169,7 @@ void set_dir(char* dir)
 
 int calc_velocity_pulses(float velocity)
 {
-	float Pulse_Time = 4248703.506*(velocity*velocity)-301809.6864*(velocity)-6355.748711;
+	float Pulse_Time = 4248703.506*(velocity*velocity)-301809.6864*(velocity)+6355.748711;
 	int returnVal = (int)round(Pulse_Time);
 	printf_P(PSTR("Velocity '%f' set Pulse_Time to '%d'\n"),velocity, returnVal);
 	return returnVal;
